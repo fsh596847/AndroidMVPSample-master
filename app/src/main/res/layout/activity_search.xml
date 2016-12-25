@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorActivityBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:orientation="vertical"
+      android:background="@color/colorMainTitleColor"
+      android:layout_width="match_parent" android:layout_height="@dimen/activity_title_height">
+    <TextView
+        android:text="搜索"
+        android:onClick="backClick"
+        style="@style/TextTitleStyle"
+        android:drawableLeft="@mipmap/back"
+    />
+
+    <TextView
+        android:text="确定"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textSize="@dimen/main_text_title_size"
+        android:onClick="searchClick"
+        android:textColor="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_bg"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
+  </RelativeLayout>
+
+  <EditText
+      android:id="@+id/etSearch"
+      android:hint="请输入品种关键字"
+      android:gravity="center"
+      android:drawableLeft="@mipmap/search"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:background="@drawable/text_bg"
+      android:layout_margin="@dimen/activity_horizontal_margin"
+      android:layout_width="match_parent" android:layout_height="@dimen/activity_add_Item_height"/>
+
+
+  <RelativeLayout
+
+      android:background="@drawable/text_top_bg"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:onClick="unitidClick"
+      android:layout_width="match_parent" android:layout_height="@dimen/activity_add_Item_height">
+    <TextView
+        android:text="交货单位"
+        style="@style/AddTextTitleStyle"/>
+
+    <TextView
+        android:id="@+id/tvUnitid"
+        android:text="请选择交货单位"
+        android:drawableRight="@mipmap/next"
+        style="@style/AddTextTitleStyle2"/>
+  </RelativeLayout>
+  <RelativeLayout
+
+      android:background="@drawable/text_bottom_bg"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:onClick="breedClick"
+      android:layout_width="match_parent" android:layout_height="@dimen/activity_add_Item_height">
+    <TextView
+        android:text="品种"
+        style="@style/AddTextTitleStyle"/>
+i
+    <TextView
+        android:id="@+id/tvBreed"
+        android:text="请选择品种"
+        android:drawableRight="@mipmap/next"
+        style="@style/AddTextTitleStyle2"/>
+  </RelativeLayout>
+</LinearLayout>

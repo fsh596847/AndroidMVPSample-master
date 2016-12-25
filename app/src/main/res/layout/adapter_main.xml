@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"/>
+
+  <TextView
+      tools:text="测试"
+      style="@style/TextStyle"
+  />
+
+</LinearLayout>

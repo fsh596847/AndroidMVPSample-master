@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@mipmap/bg"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <TextView
+      android:layout_gravity="center_horizontal"
+      android:text="@string/login_title"
+      android:layout_width="wrap_content"
+      android:textSize="@dimen/login_title_size"
+      android:layout_marginTop="150dp"
+      android:textColor="@android:color/white"
+      android:textStyle="bold"
+      android:layout_height="wrap_content"/>
+<!--  <android.support.design.widget.TextInputLayout
+      android:id="@+id/layout_name"
+      android:layout_width="400dp"
+      android:layout_marginTop="50dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_height="120dp"
+      app:counterEnabled="true"
+      android:textColorHint="@android:color/white"
+      app:counterMaxLength="5"
+      app:counterOverflowTextAppearance="@style/MyOverflowText"
+      app:errorTextAppearance="@style/MyErrorStyle">
+
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/layout_password"
+      android:layout_width="400dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_height="120dp"
+      android:textColorHint="@android:color/white"
+      app:counterEnabled="true"
+      app:counterMaxLength="11"
+      app:counterOverflowTextAppearance="@style/MyOverflowText"
+      app:errorTextAppearance="@style/MyErrorStyle">
+
+  </android.support.design.widget.TextInputLayout>-->
+  <EditText
+      android:id="@+id/input_name"
+      android:layout_width="400dp"
+      android:layout_height="80dp"
+      android:hint="@string/EnterName"
+      android:padding="10dp"
+      android:text="admin"
+      android:layout_marginTop="50dp"
+      android:textColorHint="@android:color/white"
+      android:background="@drawable/login_bg"
+      android:singleLine="true"/>
+  <EditText
+      android:id="@+id/input_password"
+      android:layout_width="400dp"
+      android:layout_height="80dp"
+      android:padding="10dp"
+      android:layout_marginTop="20dp"
+      android:hint="@string/EnterPassWord"
+      android:text="admin"
+      android:textColorHint="@android:color/white"
+      android:background="@drawable/login_bg"
+      android:inputType="textPassword"
+      android:singleLine="true"/>
+
+  <Button
+      android:id="@+id/login"
+      android:layout_width="400dp"
+      android:layout_height="70dp"
+      android:layout_marginTop="50dp"
+      android:layout_gravity="center_horizontal"
+      android:text="@string/login"
+      android:textColor="#ffffff"
+      android:textSize="20sp"
+      android:background="@drawable/btn_bg"
+      android:textStyle="bold"/>
+
+
+</LinearLayout>

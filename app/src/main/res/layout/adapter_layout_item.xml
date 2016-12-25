@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/lyt"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+  <View
+      android:background="@drawable/line_bg"
+      android:layout_width="match_parent"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_height="2dp"
+      android:layerType="software"/>
+  <LinearLayout android:layout_width="match_parent"
+      android:orientation="horizontal"
+      android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tv1"
+        tools:text="2032565155214"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="150dp"
+        tools:text="广东省鱼苗批发总代理"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv3"
+        tools:text="@string/main_text_title3"
+        android:visibility="gone"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv4"
+        tools:text="@string/main_text_title4"
+        android:visibility="gone"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv5"
+        tools:text="@string/main_text_title5"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv6"
+        tools:text="@string/main_text_title6"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv7"
+        tools:text="@string/main_text_title7"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv8"
+        tools:text="@string/main_text_title8"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv9"
+        tools:text="@string/main_text_title9"
+        style="@style/TextStyle2"/>
+    <TextView
+        android:id="@+id/tv10"
+        tools:text="@string/main_text_title10"
+        style="@style/TextStyle2"/>
+
+    <TextView
+        android:id="@+id/tv11"
+        tools:text="@string/main_text_title12"
+        style="@style/TextStyle2"
+    />
+  </LinearLayout>
+</LinearLayout>

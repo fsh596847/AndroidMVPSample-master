@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_add_Item_height"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+>
+
+  <TextView
+      android:id="@+id/tv1"
+      android:background="@drawable/text_bg"
+      android:layout_weight="1"
+      android:drawableRight="@mipmap/drop"
+      android:hint="请选择品种"
+      android:gravity="center"
+      android:padding="@dimen/activity_horizontal_margin"
+      android:layout_marginLeft="30dp"
+      android:layout_width="wrap_content" android:layout_height="match_parent"/>
+  <TextView
+      android:id="@+id/tv2"
+      android:gravity="center"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_weight="1"
+      android:inputType="number"
+      android:hint="请输入规格"
+
+      android:drawableRight="@mipmap/tiao"
+      android:padding="@dimen/activity_horizontal_margin"
+      android:background="@drawable/text_bg"
+      android:layout_width="wrap_content" android:layout_height="match_parent"/>
+  <TextView
+      android:id="@+id/tv3"
+      android:layout_weight="1"
+      android:hint="请输入毛重"
+      android:gravity="center"
+      android:padding="@dimen/activity_horizontal_margin"
+      android:inputType="number"
+      android:drawableRight="@mipmap/jin"
+      android:background="@drawable/text_bg"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:layout_width="wrap_content" android:layout_height="match_parent"/>
+
+</LinearLayout>

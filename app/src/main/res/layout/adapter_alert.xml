@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="@dimen/activity_add_Item_height"
+>
+  <TextView
+      android:id="@+id/tv"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/activity_add_Item_height"
+      android:paddingLeft="25dp"
+      android:paddingRight="15dp"
+      android:gravity="center_vertical"
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/main_title_size"
+      tools:text="测试"
+  />
+</LinearLayout>

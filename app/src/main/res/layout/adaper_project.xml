@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="@dimen/activity_add_Item_height">
+
+  <TextView
+      android:id="@+id/tvproject"
+      tools:text="项目名称"
+      android:paddingLeft="10dp"
+      android:textColor="#4D4D4D"
+      android:textSize="@dimen/main_text_title_size"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+  <CheckBox
+      android:background="@color/colorloginBtn"
+      android:id="@+id/checkbox"
+      android:clickable="false"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+</LinearLayout>

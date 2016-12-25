@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="5dp"
+>
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="满"
+  />
+  <EditText
+      android:id="@+id/et_price"
+      android:layout_width="60dp"
+      android:layout_height="30dp"
+      android:hint="价格"
+      android:singleLine="true"
+      android:ellipsize="end"
+      android:paddingLeft="3dp"
+
+      android:layout_marginLeft="3dp"
+  />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="元    减"
+
+      android:layout_marginLeft="3dp"
+      android:layout_marginRight="3dp"
+  />
+  <EditText
+      android:id="@+id/et_sub"
+      android:layout_width="60dp"
+      android:layout_height="30dp"
+      android:hint="减多少"
+      android:singleLine="true"
+      android:ellipsize="end"
+      android:paddingLeft="3dp"
+
+      android:layout_marginLeft="3dp"
+  />
+</LinearLayout>

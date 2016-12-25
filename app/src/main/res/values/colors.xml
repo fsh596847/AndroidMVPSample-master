@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorLogin">#3F51B5</color>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#3F51B5</color>
+  <color name="colorloginBtn">#FA590B</color>
+  <color name="colorloginHint">#D8F2D9</color>
+  <color name="colorMainTitleColor">#4DD0C8</color>
+  <color name="colorActivityBg">#F7F7F7</color>
+  <color name="colorBlack">#4D4D4D</color>
+<!--alertdialog-->
+  <color name="black">#787979</color>
+  <color name="alert_dialog_line">#c6c6c6</color>
+  <color name="action_sheet_blue">#53bce9</color>
+</resources>
