@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,6 +22,7 @@ import com.fsh.zhaolong.bean.UntidResponse;
 import com.fsh.zhaolong.mvp.other.MvpActivity;
 import com.fsh.zhaolong.ui.unitid.UnitidActity;
 import com.fsh.zhaolong.ui.view.AlertDialog;
+import com.fsh.zhaolong.ui.view.ProjectDialog;
 import com.fsh.zhaolong.util.Const;
 import com.fsh.zhaolong.util.DateUtil;
 import com.fsh.zhaolong.util.FullyLinearLayoutManager;
@@ -43,12 +43,12 @@ import static java.lang.Double.parseDouble;
 
 public class AddActivity extends MvpActivity<AddPresenter>
     implements AddView, AlertDialog.CallPayType, AddAdapter.CallBack, AddAdapter.ZengHang,
-    ProjectAdapter.Freshen {
-  DecimalFormat df = new DecimalFormat("######0.00");
+    ProjectAdapter.Freshen, ProjectDialog.CallPayType {
+  public static final String INTENT_KEY_UNITNAME = "Unitname";
   private final String JIN = "0";
   private final String GONG_JIN = "1";
   private final int REUEST_CODE = 1;
-  public static final String INTENT_KEY_UNITNAME = "Unitname";
+  DecimalFormat df = new DecimalFormat("######0.00");
   //交货单位
   @Bind(R.id.tv1) TextView tv1;
   //地址
@@ -63,10 +63,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   @Bind(R.id.tvreset) TextView tvReset;
   //时间
   @Bind(R.id.tvDate) TextView tvDate;
-  //默认公斤
-  private String code = "1";
-
-  private String middleCode = "1";
+  @Bind(R.id.tvproject) TextView tvproject;
   //备注
   @Bind(R.id.etRemarks) EditText etRemarks;
   @Bind(R.id.RecyclerView) RecyclerView recyclerView;
@@ -84,20 +81,39 @@ public class AddActivity extends MvpActivity<AddPresenter>
   @Bind(R.id.wasteProductEt) EditText mTvWasteProductEt;
   //实重
   @Bind(R.id.trueWeight) TextView mTvTrueWeight;
-
+  //净重
+  double netWeight;
+  //件数
+  int size;
+  //皮重
+  double tareWeight;
+  //毛重
+  double rough = 0;
+  //废品
+  double wasteProduct = 0;
+  //实际重量
+  double trueWeight = 0;
+  //默认公斤
+  private String code = "1";
+  private String middleCode = "1";
   //交货单位
   private UntidResponse.DataBean dataBean;
   //品种Item
   private List<AddItemBean> mDatas;
   private AddAdapter myadapter;
-
+  //项目Id
+  private String projectid = null;
   //请选择品种
   private List<AddResponse.DataBean> mBreeds = new ArrayList<>();
+  private List<AddProjrctResponse.DataBean> mProjects = new ArrayList<>();
+  private ProjectAdapter projectAdapter;
+  private int mItem = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add);
+
   }
 
   @Override protected AddPresenter createPresenter() {
@@ -109,7 +125,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   }
 
   @Override public void init() {
-    mvpPresenter.getProjectRecponse();
+
     tvDate.setText(DateUtil.actualTime());
     mDatas = new ArrayList<>();
     initData(0);
@@ -117,7 +133,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     initRecycle();
     tv3.addTextChangedListener(new MyTextWatch(tv3));
-    mTvWasteProductEt.addTextChangedListener(new MyTextWatch(mTvWasteProductEt));
+    mTvWasteProductEt.addTextChangedListener(new TvWasteProductWatch(mTvWasteProductEt));
   }
 
   private void initRecycle() {
@@ -138,6 +154,40 @@ public class AddActivity extends MvpActivity<AddPresenter>
     alertDialog.setCallback(this);
     alertDialog.setList(initJin());
     alertDialog.show();
+  }
+
+  /**
+   * 项目
+   */
+  @OnClick(R.id.tvproject)
+  public void project() {
+    mvpPresenter.getProjectRecponse();
+  }
+
+  /**
+   * 项目
+   */
+  @Override public void getProjectRecponse(AddProjrctResponse model) {
+    mProjects = model.getData();
+    //recyclerProject.setLayoutManager(
+    //    new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL));
+    //recyclerProject.setItemAnimator(new DefaultItemAnimator());
+    //projectAdapter = new ProjectAdapter(mProjects, mActivity);
+    //projectAdapter.setFreshen(this);
+    //recyclerProject.setAdapter(projectAdapter);
+    ProjectDialog alertDialog = new ProjectDialog(AddActivity.this).builder();
+    alertDialog.setTitle("品种");
+    alertDialog.setProjectCallback(this);
+    alertDialog.setList(mProjects);
+    alertDialog.show();
+  }
+
+  /**
+   * 项目
+   */
+  @Override public void callback(AddProjrctResponse.DataBean dataBean, int i) {
+    projectid = dataBean.getProjectid();
+    tvproject.setText(dataBean.getProjectname());
   }
 
   /**
@@ -191,19 +241,6 @@ public class AddActivity extends MvpActivity<AddPresenter>
     } else {
       Toast.makeText(mActivity, model.getData(), Toast.LENGTH_SHORT).show();
     }
-  }
-
-  private List<AddProjrctResponse.DataBean> mProjects = new ArrayList<>();
-  private ProjectAdapter projectAdapter;
-
-  @Override public void getProjectRecponse(AddProjrctResponse model) {
-    mProjects = model.getData();
-    recyclerProject.setLayoutManager(
-        new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL));
-    recyclerProject.setItemAnimator(new DefaultItemAnimator());
-    projectAdapter = new ProjectAdapter(mProjects, mActivity);
-    projectAdapter.setFreshen(this);
-    recyclerProject.setAdapter(projectAdapter);
   }
 
   @Override public void getDataFail(String msg) {
@@ -277,13 +314,13 @@ public class AddActivity extends MvpActivity<AddPresenter>
   }
 
   public void saveClick(View view) {
-    String projectid = null;
-    for (int i = 0; i < mProjects.size(); i++) {
-      if (mProjects.get(i).isCheck()) {
-        projectid = mProjects.get(i).getProjectid();
-        break;
-      }
-    }
+    //String projectid = null;
+    //for (int i = 0; i < mProjects.size(); i++) {
+    //  if (mProjects.get(i).isCheck()) {
+    //    projectid = mProjects.get(i).getProjectid();
+    //    break;
+    //  }
+    //}
     if (TextUtils.isEmpty(tv1.getText().toString())) {
       Toast.makeText(mActivity, "请选择交货单位", Toast.LENGTH_SHORT).show();
       return;
@@ -299,6 +336,16 @@ public class AddActivity extends MvpActivity<AddPresenter>
     }
     if (TextUtils.isEmpty(projectid)) {
       Toast.makeText(mActivity, "请选择项目", Toast.LENGTH_SHORT).show();
+      return;
+    }
+    String sWasteProduct = mTvWasteProductEt.getText().toString();
+    if (sWasteProduct.equals("")) {
+      Toast.makeText(mActivity, "请输入废品", Toast.LENGTH_SHORT).show();
+      return;
+    }
+    if (TextUtils.isEmpty(sWasteProduct)
+        && (Double.parseDouble(mTvWasteProductEt.getText().toString())) >= 0) {
+      Toast.makeText(mActivity, "请输入废品", Toast.LENGTH_SHORT).show();
       return;
     }
 
@@ -387,19 +434,6 @@ public class AddActivity extends MvpActivity<AddPresenter>
     }
   }
 
-  //净重
-  double netWeight;
-  //件数
-  int size;
-  //皮重
-  double tareWeight;
-  //毛重
-  double rough = 0;
-  //废品
-  double wasteProduct = 0;
-  //实际重量
-  double trueWeight = 0;
-
   private void tongJi() { //件数=行数
     rough = 0;
     size = 0;
@@ -440,6 +474,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
     netWeight = rough - tareWeight;
     tvNetWeight.setText("净重:" + formDecimalFormat(netWeight));
+    countWasteProduct();
   }
 
   /**
@@ -485,8 +520,6 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
     return df.format(d);
   }
-
-  private int mItem = 0;
 
   //品种
   @Override public void BreedCallbck(int position) {
@@ -584,6 +617,56 @@ public class AddActivity extends MvpActivity<AddPresenter>
           editText.setSelection(1);
           return;
         }
+      }
+    }
+
+    @Override public void afterTextChanged(Editable editable) {
+
+    }
+  }
+
+  private class TvWasteProductWatch implements TextWatcher {
+
+    private EditText editText;
+
+    public TvWasteProductWatch(EditText editText) {
+      this.editText = editText;
+    }
+
+    @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
+
+    @Override public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+
+      if (netWeight > 0) {
+        if (s.toString().contains(".")) {
+          if (s.length() - 1 - s.toString().indexOf(".")
+              > 2) {
+            s = s.toString().subSequence(0, s.toString().indexOf(".") + 3);
+            editText.setText(s);
+            editText.setSelection(s.length());
+          }
+        }
+        if (s.toString().trim().substring(0).equals(".")) {
+          s = "0" + s;
+          editText.setText(s);
+          editText.setSelection(2);
+        }
+        if (s.toString().startsWith("0")
+            && s.toString().trim().length() > 1) {
+          if (!s.toString().substring(1, 2).equals(".")) {
+            editText.setText(s.subSequence(0,
+                1));
+            editText.setSelection(1);
+
+            return;
+          }
+        }
+        mTvTrueWeight.setText(
+            "实重:" + formDecimalFormat(netWeight - Double.parseDouble(s.toString())));
+      } else {
+        //mTvWasteProductEt.setText(s.toString());
+        Toast.makeText(mActivity, "请输入毛重,否则无法计算实际重量！", Toast.LENGTH_SHORT).show();
       }
     }
 

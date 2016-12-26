@@ -37,7 +37,7 @@
     <string name="main_text_title13">单位</string>
     <string name="main_text_title14">交货地址</string>
     <string name="main_text_title15">交货单位</string>
-
+    <string name="main_text_title16">项目</string>
     <string name="add_text_tiao">条/公斤</string>
     <string name="add_text_tiao_brother">条/斤</string>
     <string name="add_text_gongjin">公斤</string>
