@@ -35,6 +35,11 @@ import org.json.JSONObject;
  */
 
 public class MainActivity extends MvpActivity<MainPresenter> implements MainView {
+  //交货单位
+  public static final String INTENT_KEY_UNTID = "UNTID";
+  //请选择品种
+  public static final String INTENT_KEY_BREED = "BREED";
+  public static final String INTENT_KEY_BREEDNAME = "BREEDNAME";
   private SwipeRecyclerView recyclerView;
   private List<MainResponse.DataBean> data;
   private RecyclerViewAdapter adapter;
@@ -43,11 +48,33 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
   private int pagerNum = 1;
   private String userid;
 
-  //交货单位
-  public static final String INTENT_KEY_UNTID = "UNTID";
-  //请选择品种
-  public static final String INTENT_KEY_BREED = "BREED";
-  public static final String INTENT_KEY_BREEDNAME = "BREEDNAME";
+  public static void CallIntent(Context context, String UNTID, String BREED, String BREEDName) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(INTENT_KEY_UNTID, UNTID);
+    intent.putExtra(INTENT_KEY_BREED, BREED);
+    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
+    context.startActivity(intent);
+  }
+
+  public static void CallIntent(Context context, String UNTID, String BREEDName) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(INTENT_KEY_UNTID, UNTID);
+    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
+    context.startActivity(intent);
+  }
+
+  public static void CallIntent1(Context context, String BREED, String BREEDName) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(INTENT_KEY_BREED, BREED);
+    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
+    context.startActivity(intent);
+  }
+
+  public static void CallIntent2(Context context, String BREEDName) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
+    context.startActivity(intent);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +107,17 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     recyclerView.setOnLoadListener(new SwipeRecyclerView.OnLoadListener() {
       @Override
       public void onRefresh() {
-        //mvpPresenter.projectList(map);
-        mvpPresenter.projectList(userid, unitid, varietyid, varietyidName, pagerNum + "", "15");
+        mvpPresenter.projectList(map);
+        //mvpPresenter.projectList(userid, unitid, varietyid, varietyidName, pagerNum + "", "15");
       }
 
       @Override
       public void onLoadMore() {
         pagerNum++;
         if (pagerNum <=totalPage) {
-          //final Map<String, String> map = getMap(unitid, varietyid, varietyidName);
-          //mvpPresenter.projectList(map);
-          mvpPresenter.projectList(userid, unitid, varietyid, varietyidName, pagerNum + "", "15");
+          final Map<String, String> map = getMap(unitid, varietyid, varietyidName);
+          mvpPresenter.projectList(map);
+          //mvpPresenter.projectList(userid, unitid, varietyid, varietyidName, pagerNum + "", "15");
         } else {
           recyclerView.onNoMore("没有更多了");
           recyclerView.complete();
@@ -120,34 +147,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     map.put("pagesize", "15");
 
     return map;
-  }
-
-  public static void CallIntent(Context context, String UNTID, String BREED, String BREEDName) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.putExtra(INTENT_KEY_UNTID, UNTID);
-    intent.putExtra(INTENT_KEY_BREED, BREED);
-    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
-    context.startActivity(intent);
-  }
-
-  public static void CallIntent(Context context, String UNTID, String BREEDName) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.putExtra(INTENT_KEY_UNTID, UNTID);
-    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
-    context.startActivity(intent);
-  }
-
-  public static void CallIntent1(Context context, String BREED, String BREEDName) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.putExtra(INTENT_KEY_BREED, BREED);
-    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
-    context.startActivity(intent);
-  }
-
-  public static void CallIntent2(Context context, String BREEDName) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.putExtra(INTENT_KEY_BREEDNAME, BREEDName);
-    context.startActivity(intent);
   }
 
   @Override public void getDataSuccess(String model) {
@@ -188,6 +187,36 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
   public void searchClick(View view) {
     Intent intent = new Intent(mActivity, SearchActivity.class);
     startActivity(intent);
+  }
+
+  static class ItemViewHolder extends RecyclerView.ViewHolder {
+
+    LinearLayout lyt;
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+    TextView tv4;
+    TextView tv5;
+    TextView tv6;
+    TextView tv7;
+    TextView tv8;
+    TextView tv9;
+    TextView tv10;
+
+    public ItemViewHolder(View view) {
+      super(view);
+      lyt = (LinearLayout) view.findViewById(R.id.lyt);
+      tv1 = (TextView) view.findViewById(R.id.tv1);
+      tv2 = (TextView) view.findViewById(R.id.tv2);
+      tv3 = (TextView) view.findViewById(R.id.tv3);
+      tv4 = (TextView) view.findViewById(R.id.tv4);
+      tv5 = (TextView) view.findViewById(R.id.tv5);
+      tv6 = (TextView) view.findViewById(R.id.tv6);
+      tv7 = (TextView) view.findViewById(R.id.tv7);
+      tv8 = (TextView) view.findViewById(R.id.tv8);
+      tv9 = (TextView) view.findViewById(R.id.tv9);
+      tv10 = (TextView) view.findViewById(R.id.tv10);
+    }
   }
 
   private class RecyclerViewAdapter extends RecyclerView.Adapter<ItemViewHolder> {
@@ -241,36 +270,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
           startActivity(intent);
         }
       });
-    }
-  }
-
-  static class ItemViewHolder extends RecyclerView.ViewHolder {
-
-    LinearLayout lyt;
-    TextView tv1;
-    TextView tv2;
-    TextView tv3;
-    TextView tv4;
-    TextView tv5;
-    TextView tv6;
-    TextView tv7;
-    TextView tv8;
-    TextView tv9;
-    TextView tv10;
-
-    public ItemViewHolder(View view) {
-      super(view);
-      lyt = (LinearLayout) view.findViewById(R.id.lyt);
-      tv1 = (TextView) view.findViewById(R.id.tv1);
-      tv2 = (TextView) view.findViewById(R.id.tv2);
-      tv3 = (TextView) view.findViewById(R.id.tv3);
-      tv4 = (TextView) view.findViewById(R.id.tv4);
-      tv5 = (TextView) view.findViewById(R.id.tv5);
-      tv6 = (TextView) view.findViewById(R.id.tv6);
-      tv7 = (TextView) view.findViewById(R.id.tv7);
-      tv8 = (TextView) view.findViewById(R.id.tv8);
-      tv9 = (TextView) view.findViewById(R.id.tv9);
-      tv10 = (TextView) view.findViewById(R.id.tv10);
     }
   }
 }

@@ -4,7 +4,6 @@ import com.fsh.zhaolong.bean.AddProjrctResponse;
 import com.fsh.zhaolong.bean.AddResponse;
 import com.fsh.zhaolong.bean.AddResponseSuccessful;
 import com.fsh.zhaolong.bean.DetailResponse;
-import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.bean.UntidResponse;
 import com.fsh.zhaolong.mvp.main.MainModel;
 import java.util.Map;
@@ -41,8 +40,9 @@ public interface ApiStores {
     Observable<String> login(@FieldMap Map<String, String> map);
 
     //主页
+    @FormUrlEncoded
     @POST("phone_queryMakCode.action")
-    Observable<MainResponse> projectList(@QueryMap Map<String, String> map);
+    Observable<String> projectList(@FieldMap Map<String, String> map);
 
     //@Headers({"Content-type:application/json;charset=UTF-8"})
     //@Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
@@ -50,7 +50,8 @@ public interface ApiStores {
     @POST("phone_queryMakCode.action")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Observable<String> projectList(@Field("userid") String userid,
-        @Field("unitid") String unitid,@Field("varietyid") String varietyid, @Field("varietyname") String varietyname,
+        @Field("unitid") String unitid, @Field("varietyid") String varietyid,
+        @Field(value = "varietyname") String varietyname,
         @Field("p") String P, @Field("pagesize") String pagesize);
 
 
@@ -81,16 +82,19 @@ public interface ApiStores {
 
     );
     //增加划码单接口
-    //@FormUrlEncoded
+
     //@Multipart
+    @FormUrlEncoded
     @POST("phone_addMakCode.action")
-    Observable<AddResponseSuccessful> phoneAddMakCode(@QueryMap Map<String, String> map);
+    Observable<AddResponseSuccessful> phoneAddMakCode(@FieldMap Map<String, String> map);
 
     //划码单详情
+
     @POST("phone_queryMakCodeDatail.action")
     Observable<DetailResponse> phoneueryMakCodeDatail(@QueryMap Map<String, String> map);
 
     //查询项目
+
     @POST("phone_queryProject.action")
     Observable<AddProjrctResponse> phoneQueryProject();
 }
