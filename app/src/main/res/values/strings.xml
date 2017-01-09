@@ -35,6 +35,8 @@
     <string name="main_text_title11">废品</string>
     <string name="main_text_title12">操作</string>
     <string name="main_text_title13">单位</string>
+    <string name="main_text_edit">编辑</string>
+    <string name="main_text_del">删除</string>
     <string name="main_text_title14">交货地址</string>
     <string name="main_text_title15">交货单位</string>
     <string name="main_text_title16">项目</string>

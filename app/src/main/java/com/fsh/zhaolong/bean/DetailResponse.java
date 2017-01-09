@@ -46,34 +46,34 @@ public class DetailResponse extends BaseResponse<List<DetailResponse.DataBean>> 
      * totalgrossweight : 7
      */
 
-    private int spec;
+    private double spec;
     private String waste;
     private String mny;
     private String unitname;
     private String hid;
     private String mea;
     private String userid;
-    private int totalrealweight;
+    private double totalrealweight;
     private String totalmny;
     private String createtime;
     private String username;
-    private int totaltareweight;
+    private double totaltareweight;
     private String unitid;
-    private int totalwaste;
+    private double totalwaste;
     private String realweight;
     private String varietyname;
     private String bid;
-    private int peel;
+    private double peel;
     private String netweight;
     private String billcode;
-    private int totalnetweight;
+    private double totalnetweight;
     private String totalnum;
     private String varietyid;
     private String num;
     private String deliveryaddress;
-    private int grossweight;
-    private int tareweight;
-    private int totalgrossweight;
+    private double grossweight;
+    private double tareweight;
+    private double totalgrossweight;
 
 
   }

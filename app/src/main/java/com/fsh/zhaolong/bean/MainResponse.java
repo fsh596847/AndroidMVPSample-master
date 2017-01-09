@@ -1,5 +1,6 @@
 package com.fsh.zhaolong.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,11 +9,12 @@ import lombok.Setter;
  * Created by HIPAA on 2016/12/21.
  */
 @Setter @Getter
-public class MainResponse extends BaseResponse<List<MainResponse.DataBean>>{
+public class MainResponse extends BaseResponse<List<MainResponse.DataBean>>
+    implements Serializable {
 
 
   @Setter @Getter
-  public static class DataBean {
+  public static class DataBean implements Serializable {
     /**
      * spec : 55
      * waste : 55

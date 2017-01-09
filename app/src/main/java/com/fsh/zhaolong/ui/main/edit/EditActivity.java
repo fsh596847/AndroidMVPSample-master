@@ -1,4 +1,4 @@
-package com.fsh.zhaolong.ui.increse;
+package com.fsh.zhaolong.ui.main.edit;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,12 @@ import com.fsh.zhaolong.bean.AddItemBean;
 import com.fsh.zhaolong.bean.AddProjrctResponse;
 import com.fsh.zhaolong.bean.AddResponse;
 import com.fsh.zhaolong.bean.AddResponseSuccessful;
+import com.fsh.zhaolong.bean.DetailResponse;
+import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.bean.UntidResponse;
 import com.fsh.zhaolong.mvp.other.MvpActivity;
+import com.fsh.zhaolong.ui.detail.DetailActivity;
+import com.fsh.zhaolong.ui.main.MainActivity;
 import com.fsh.zhaolong.ui.unitid.UnitidActity;
 import com.fsh.zhaolong.ui.view.AlertDialog;
 import com.fsh.zhaolong.ui.view.ProjectDialog;
@@ -41,8 +45,8 @@ import static java.lang.Double.parseDouble;
  * Created by HIPAA on 2016/12/19.
  */
 
-public class AddActivity extends MvpActivity<AddPresenter>
-    implements AddView, AlertDialog.CallPayType, AddAdapter.CallBack, AddAdapter.ZengHang,
+public class EditActivity extends MvpActivity<EditPresenter>
+    implements EditView, AlertDialog.CallPayType, EditAdapter.CallBack, EditAdapter.ZengHang,
     ProjectAdapter.Freshen, ProjectDialog.CallPayType {
   public static final String INTENT_KEY_UNITNAME = "Unitname";
   private final String JIN = "0";
@@ -52,7 +56,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   //交货单位
   @Bind(R.id.tv1) TextView tv1;
   //地址
-  @Bind(R.id.tvaddress) EditText tv;
+  @Bind(R.id.tvaddress) EditText mTvAddress;
   //去皮
   @Bind(R.id.tv3) EditText tv3;
   //单位
@@ -100,24 +104,27 @@ public class AddActivity extends MvpActivity<AddPresenter>
   private UntidResponse.DataBean dataBean;
   //品种Item
   private List<AddItemBean> mDatas;
-  private AddAdapter myadapter;
+  private EditAdapter myadapter;
   //项目Id
   private String projectid = null;
   //请选择品种
   private List<AddResponse.DataBean> mBreeds = new ArrayList<>();
+  //项目
   private List<AddProjrctResponse.DataBean> mProjects = new ArrayList<>();
-  private ProjectAdapter projectAdapter;
   private int mItem = 0;
+  private ProjectAdapter projectAdapter;
+  //交货单位
+  private String Unitname;
+  private String Unitid;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_add);
-
+    setContentView(R.layout.activity_edit);
   }
 
-  @Override protected AddPresenter createPresenter() {
-    return new AddPresenter(AddActivity.this);
+  @Override protected EditPresenter createPresenter() {
+    return new EditPresenter(EditActivity.this);
   }
 
   public void backClick(View view) {
@@ -125,22 +132,43 @@ public class AddActivity extends MvpActivity<AddPresenter>
   }
 
   @Override public void init() {
+    Map<String, String> map = new HashMap<>();
+    map.put("userid", PreferenceUtils.getPrefString(mActivity, "userid", null));
+    map.put("hid", getIntent().getStringExtra(DetailActivity.INTEN_KEY_HID));
+    mvpPresenter.phoneueryMakCodeDatail(map);
 
+    MainResponse.DataBean dataBean =
+        (MainResponse.DataBean) getIntent().getSerializableExtra(MainActivity.INTENT_KEY_EDIT);
+    //单位.
+    if (dataBean.getMea().equals(GONG_JIN)) {
+      tv2.setText("公斤");
+    } else {
+      tv2.setText("斤");
+    }
+    //交货单位mTvAddress.
+    mTvAddress.setText(dataBean.getDeliveryaddress());
+    //去皮.
+    tv3.setText(dataBean.getPeel());
+    //交货单位
+    tv1.setText(dataBean.getUnitname());
+    // 备注. etRemarks.setText(dataBean.getR);
+
+    //皮重mTvTareWeight.setText(dataBean.getTareweight());
+    //废品
+    mTvWasteProductEt.setText(dataBean.getTotalwaste());
+    //实重mTvTrueWeight
+
+    //时间
     tvDate.setText(DateUtil.actualTime());
-    mDatas = new ArrayList<>();
-    initData(0);
-    recyclerView.setLayoutManager(new FullyLinearLayoutManager(this));
-    recyclerView.setItemAnimator(new DefaultItemAnimator());
-    initRecycle();
     tv3.addTextChangedListener(new MyTextWatch(tv3));
     mTvWasteProductEt.addTextChangedListener(new TvWasteProductWatch(mTvWasteProductEt));
   }
 
   private void initRecycle() {
     if (code.equals(GONG_JIN)) {
-      myadapter = new AddAdapter(mActivity, mDatas, R.layout.adapter_add);
+      myadapter = new EditAdapter(mActivity, mDatas, R.layout.adapter_add);
     } else if (code.equals(JIN)) {
-      myadapter = new AddAdapter(mActivity, mDatas, R.layout.adapter_add_brother);
+      myadapter = new EditAdapter(mActivity, mDatas, R.layout.adapter_add_brother);
     }
     recyclerView.setAdapter(myadapter);
     myadapter.setCallBack(this);
@@ -149,7 +177,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
   @OnClick(R.id.lyt_title3)
   public void unite() {
-    AlertDialog alertDialog = new AlertDialog(AddActivity.this).builder();
+    AlertDialog alertDialog = new AlertDialog(EditActivity.this).builder();
     alertDialog.setTitle("单位");
     alertDialog.setCallback(this);
     alertDialog.setList(initJin());
@@ -175,7 +203,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     //projectAdapter = new ProjectAdapter(mProjects, mActivity);
     //projectAdapter.setFreshen(this);
     //recyclerProject.setAdapter(projectAdapter);
-    ProjectDialog alertDialog = new ProjectDialog(AddActivity.this).builder();
+    ProjectDialog alertDialog = new ProjectDialog(EditActivity.this).builder();
     alertDialog.setTitle("项目");
     alertDialog.setProjectCallback(this);
     alertDialog.setList(mProjects);
@@ -205,10 +233,6 @@ public class AddActivity extends MvpActivity<AddPresenter>
       }
     }
     AddItemBean addItemBean = new AddItemBean();
-    //addItemBean.setBreed("");//品种
-    //addItemBean.setBreedId("");
-    //addItemBean.setNorms("0");//规格
-    //addItemBean.setRough("0");//毛重
     mDatas.add(addItemBean);
   }
 
@@ -227,7 +251,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
   @Override public void getDataSuccess(AddResponse model) {
     mBreeds = model.getData();
-    AlertDialog alertDialog = new AlertDialog(AddActivity.this).builder();
+    AlertDialog alertDialog = new AlertDialog(EditActivity.this).builder();
     alertDialog.setTitle("品种");
     alertDialog.setCallback(this);
     alertDialog.setList(mBreeds);
@@ -245,6 +269,25 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
   @Override public void getDataFail(String msg) {
     Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void getDataSuccess(DetailResponse model) {
+    List<DetailResponse.DataBean> list = model.getData();
+    mDatas = new ArrayList<>();
+    for (int i = 0; i < list.size(); i++) {
+      AddItemBean addItemBean = new AddItemBean();
+      addItemBean.setBreed(list.get(i).getVarietyname());
+      addItemBean.setBreedId(list.get(i).getVarietyid());
+      addItemBean.setNorms(list.get(i).getSpec() + "");
+      addItemBean.setRough(list.get(i).getGrossweight() + "");
+      mDatas.add(addItemBean);
+    }
+    //initData(0);
+    recyclerView.setLayoutManager(new FullyLinearLayoutManager(this));
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    initRecycle();
+    //计算
+    tongJi();
   }
 
   public void unitidClick(View view) {
@@ -325,7 +368,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
       Toast.makeText(mActivity, "请选择交货单位", Toast.LENGTH_SHORT).show();
       return;
     }
-    if (TextUtils.isEmpty(tv.getText().toString())) {
+    if (TextUtils.isEmpty(mTvAddress.getText().toString())) {
       Toast.makeText(mActivity, "请选择交货地址", Toast.LENGTH_SHORT).show();
       return;
     }
@@ -351,8 +394,8 @@ public class AddActivity extends MvpActivity<AddPresenter>
 
     String json = formJson();
     String userid = PreferenceUtils.getPrefString(mActivity, "userid", null);
-    String Unitname = dataBean.getUnitname();
-    String Unitid = dataBean.getUnitid();
+    Unitname = dataBean.getUnitname();
+    Unitid = dataBean.getUnitid();
 
     Map<String, String> queryParam = new HashMap<>();
     queryParam.put("userid", userid);
@@ -362,7 +405,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     queryParam.put("remark", etRemarks.getText().toString());
     queryParam.put("mea", code);
     queryParam.put("peel", tv3.getText().toString());
-    queryParam.put("deliveryaddress", tv.getText().toString().trim());
+    queryParam.put("deliveryaddress", mTvAddress.getText().toString().trim());
     queryParam.put("dataList", json);
     queryParam.put("projectid", projectid);
 
@@ -488,7 +531,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     tv1.setText(null);
     dataBean = null;
     //地址
-    tv.setText(null);
+    mTvAddress.setText(null);
     //单位
     code = "1";
     tv2.setText("公斤");

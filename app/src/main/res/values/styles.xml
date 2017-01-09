@@ -26,7 +26,6 @@
 
     <style name="TextStyle">
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:textColor">#DB8159</item>
         <item name="android:padding">10dp</item>
         <item name="android:textSize">@dimen/main_text_title_size</item>
@@ -35,7 +34,6 @@
     </style>
     <style name="TextStyle2">
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>

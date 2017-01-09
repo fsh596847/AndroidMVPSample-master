@@ -89,12 +89,15 @@ public interface ApiStores {
     Observable<AddResponseSuccessful> phoneAddMakCode(@FieldMap Map<String, String> map);
 
     //划码单详情
-
     @POST("phone_queryMakCodeDatail.action")
     Observable<DetailResponse> phoneueryMakCodeDatail(@QueryMap Map<String, String> map);
 
     //查询项目
-
     @POST("phone_queryProject.action")
     Observable<AddProjrctResponse> phoneQueryProject();
+
+    //删除项目
+    @FormUrlEncoded
+    @POST("phone_deleMakCode.action")
+    Observable<String> deleteList(@FieldMap Map<String, String> map);
 }

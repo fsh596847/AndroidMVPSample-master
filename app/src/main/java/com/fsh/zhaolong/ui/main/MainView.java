@@ -11,4 +11,6 @@ public interface MainView extends BaseView{
   void getDataSuccess(String model);
 
   void getDataFail(String msg);
+
+  void getDeleteMsg(String msg);
 }
