@@ -101,7 +101,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
   private String code = "1";
   private String middleCode = "1";
   //交货单位
-  private UntidResponse.DataBean dataBean;
+  private UntidResponse.DataBean mUntid;
   //品种Item
   private List<AddItemBean> mDatas;
   private EditAdapter myadapter;
@@ -141,6 +141,8 @@ public class EditActivity extends MvpActivity<EditPresenter>
 
     MainResponse.DataBean dataBean =
         (MainResponse.DataBean) getIntent().getSerializableExtra(MainActivity.INTENT_KEY_EDIT);
+    Unitname = dataBean.getUnitname();
+    Unitid = dataBean.getUnitid();
     //单位.
     if (dataBean.getMea().equals(GONG_JIN)) {
       tv2.setText("公斤");
@@ -149,6 +151,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
     }
     hid = dataBean.getHid();
     projectid = dataBean.getProjectid();
+    projectName = dataBean.getProjectname();
     tvproject.setText(dataBean.getProjectname());
     //交货单位mTvAddress.
     mTvAddress.setText(dataBean.getDeliveryaddress());
@@ -306,9 +309,9 @@ public class EditActivity extends MvpActivity<EditPresenter>
     if (data == null) {
       return;
     }
-    dataBean =
+    mUntid =
         (UntidResponse.DataBean) data.getSerializableExtra(INTENT_KEY_UNITNAME);
-    tv1.setText(dataBean.getUnitname());
+    tv1.setText(mUntid.getUnitname());
   }
 
   @Override public void callback(AddResponse.DataBean dataBean, int i) {
@@ -400,8 +403,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
 
     String json = formJson();
     String userid = PreferenceUtils.getPrefString(mActivity, "userid", null);
-    Unitname = dataBean.getUnitname();
-    Unitid = dataBean.getUnitid();
+
 
     Map<String, String> queryParam = new HashMap<>();
     queryParam.put("userid", userid);
@@ -536,7 +538,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
     initRecycle();
     //交货单位
     tv1.setText(null);
-    dataBean = null;
+    mUntid = null;
     //地址
     mTvAddress.setText(null);
     //单位
