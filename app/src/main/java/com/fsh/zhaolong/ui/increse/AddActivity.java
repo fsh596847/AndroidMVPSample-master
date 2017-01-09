@@ -103,6 +103,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   private AddAdapter myadapter;
   //项目Id
   private String projectid = null;
+  private String projectName = null;
   //请选择品种
   private List<AddResponse.DataBean> mBreeds = new ArrayList<>();
   private List<AddProjrctResponse.DataBean> mProjects = new ArrayList<>();
@@ -187,6 +188,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
    */
   @Override public void callback(AddProjrctResponse.DataBean dataBean, int i) {
     projectid = dataBean.getProjectid();
+    projectName = dataBean.getProjectname();
     tvproject.setText(dataBean.getProjectname());
   }
 
@@ -365,7 +367,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     queryParam.put("deliveryaddress", tv.getText().toString().trim());
     queryParam.put("dataList", json);
     queryParam.put("projectid", projectid);
-
+    queryParam.put("projectname", projectName);
     mvpPresenter.phoneAddMakCode(queryParam);
     //mvpPresenter.phoneAddMakCode(userid,Unitname,Unitid,wasteProduct,
     //    etRemarks.getText().toString(),code, tv3.getText().toString(),tv.getText().toString()

@@ -107,6 +107,8 @@ public class EditActivity extends MvpActivity<EditPresenter>
   private EditAdapter myadapter;
   //项目Id
   private String projectid = null;
+  private String projectName = null;
+  private String hid = null;
   //请选择品种
   private List<AddResponse.DataBean> mBreeds = new ArrayList<>();
   //项目
@@ -145,6 +147,9 @@ public class EditActivity extends MvpActivity<EditPresenter>
     } else {
       tv2.setText("斤");
     }
+    hid = dataBean.getHid();
+    projectid = dataBean.getProjectid();
+    tvproject.setText(dataBean.getProjectname());
     //交货单位mTvAddress.
     mTvAddress.setText(dataBean.getDeliveryaddress());
     //去皮.
@@ -215,6 +220,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
    */
   @Override public void callback(AddProjrctResponse.DataBean dataBean, int i) {
     projectid = dataBean.getProjectid();
+    projectName = dataBean.getProjectname();
     tvproject.setText(dataBean.getProjectname());
   }
 
@@ -408,7 +414,8 @@ public class EditActivity extends MvpActivity<EditPresenter>
     queryParam.put("deliveryaddress", mTvAddress.getText().toString().trim());
     queryParam.put("dataList", json);
     queryParam.put("projectid", projectid);
-
+    queryParam.put("projectname", projectName);
+    queryParam.put("hid", hid);
     mvpPresenter.phoneAddMakCode(queryParam);
     //mvpPresenter.phoneAddMakCode(userid,Unitname,Unitid,wasteProduct,
     //    etRemarks.getText().toString(),code, tv3.getText().toString(),tv.getText().toString()

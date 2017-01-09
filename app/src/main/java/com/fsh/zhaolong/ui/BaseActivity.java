@@ -30,6 +30,7 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseActivity extends AppCompatActivity {
     public Activity mActivity;
     public ApiStores apiStores = AppClient.retrofit().create(ApiStores.class);
+    public ProgressDialog progressDialog;
     private CompositeSubscription mCompositeSubscription;
     private List<Call> calls;
 
@@ -58,7 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onDestroy() {
         callCancel();
@@ -83,7 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             calls.clear();
         }
     }
-
 
     public void addSubscription(Observable observable, Subscriber subscriber) {
         if (mCompositeSubscription == null) {
@@ -141,7 +140,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return toolbar;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -163,12 +161,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
     }
 
-    public ProgressDialog progressDialog;
-
     public ProgressDialog showProgressDialog() {
         progressDialog = new ProgressDialog(mActivity);
         progressDialog.setMessage("加载中");
-        if (!mActivity.isFinishing() && !progressDialog.isShowing()) {
+        if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
         return progressDialog;
