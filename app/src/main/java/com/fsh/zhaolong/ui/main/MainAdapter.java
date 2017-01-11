@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.fsh.zhaolong.R;
 import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.ui.detail.DetailActivity;
-import com.fsh.zhaolong.ui.view.MainAlertDialog;
 import java.util.List;
 
 /**
@@ -89,14 +88,28 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     });
     holder.btn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
+        //if (callBack != null) {
+        //  callBack.call(data.get(position).getHid(), position);
+        //}
+        //MainAlertDialog alertDialog = new MainAlertDialog(context).builder();
+        //alertDialog.setTitle("温馨提示");
+        //alertDialog.setList(listItem);
+        //alertDialog.setCallback((MainActivity) context);
+        //alertDialog.show();
+      }
+    });
+    holder.btnDel.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
         if (callBack != null) {
-          callBack.call(data.get(position).getHid(), position);
+          callBack.del(data.get(position).getHid(), position);
         }
-        MainAlertDialog alertDialog = new MainAlertDialog(context).builder();
-        alertDialog.setTitle("温馨提示");
-        alertDialog.setList(listItem);
-        alertDialog.setCallback((MainActivity) context);
-        alertDialog.show();
+      }
+    });
+    holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        if (callBack != null) {
+          callBack.edit(data.get(position).getHid(), position);
+        }
       }
     });
   }
@@ -104,6 +117,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
   public interface CallBack {
 
     void call(String hid, int position);
+
+    void del(String hid, int position);
+
+    void edit(String hid, int position);
   }
 
   static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -120,6 +137,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     TextView tv9;
     TextView tv10;
     Button btn;
+    Button btnDel;
+    Button btnEdit;
 
     public ItemViewHolder(View view) {
       super(view);
@@ -135,6 +154,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
       tv9 = (TextView) view.findViewById(R.id.tv9);
       tv10 = (TextView) view.findViewById(R.id.tv10);
       btn = (Button) view.findViewById(R.id.tv11);
+      btnDel = (Button) view.findViewById(R.id.tv12);
+      btnEdit = (Button) view.findViewById(R.id.tv13);
     }
   }
 }

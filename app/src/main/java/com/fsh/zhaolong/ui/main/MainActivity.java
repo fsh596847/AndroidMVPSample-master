@@ -18,6 +18,7 @@ import com.fsh.zhaolong.ui.increse.AddActivity;
 import com.fsh.zhaolong.ui.main.edit.EditActivity;
 import com.fsh.zhaolong.ui.search.SearchActivity;
 import com.fsh.zhaolong.ui.view.MainAlertDialog;
+import com.fsh.zhaolong.ui.view.TalertDialog;
 import com.fsh.zhaolong.util.Const;
 import com.fsh.zhaolong.util.PreferenceUtils;
 import com.google.gson.Gson;
@@ -131,8 +132,6 @@ public class MainActivity extends MvpActivity<MainPresenter>
         }
       }
     });
-
-
   }
 
   @Override protected void onResume() {
@@ -213,17 +212,18 @@ public class MainActivity extends MvpActivity<MainPresenter>
   }
 
   @Override public void callback(String dataBean, int i) {
-    Map<String, String> map = new HashMap<>();
-    map.put("userid", userid);
-    map.put("hid", mHid);
-    if (i == 0) {
-      Intent intent = new Intent(mActivity, EditActivity.class);
-      intent.putExtra(INTENT_KEY_EDIT, data.get(mPosition));
-      intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(mPosition).getHid());
-      startActivity(intent);
-    } else {
-      mvpPresenter.deleteList(map);
-    }
+    Toast.makeText(mActivity, "暂未开通", Toast.LENGTH_SHORT).show();
+    //Map<String, String> map = new HashMap<>();
+    //map.put("userid", userid);
+    //map.put("hid", mHid);
+    //if (i == 0) {
+    //  Intent intent = new Intent(mActivity, EditActivity.class);
+    //  intent.putExtra(INTENT_KEY_EDIT, data.get(mPosition));
+    //  intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(mPosition).getHid());
+    //  startActivity(intent);
+    //} else {
+    //  mvpPresenter.deleteList(map);
+    //}
   }
 
   @Override public void call(String hid, int position) {
@@ -231,4 +231,30 @@ public class MainActivity extends MvpActivity<MainPresenter>
     mPosition = position;
   }
 
+  @Override public void del(String hid, int position) {
+    mHid = hid;
+    mPosition = position;
+    new TalertDialog(mActivity).builder().setTitle("温馨提示").setMsg("确认删除吗").setNegativeButton("",
+        new View.OnClickListener() {
+          @Override public void onClick(View view) {
+
+          }
+        }).setPositiveButton("", new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        Map<String, String> map = new HashMap<>();
+        map.put("userid", userid);
+        map.put("hid", mHid);
+        mvpPresenter.deleteList(map);
+      }
+    }).show();
+  }
+
+  @Override public void edit(String hid, int position) {
+    mHid = hid;
+    mPosition = position;
+    Intent intent = new Intent(mActivity, EditActivity.class);
+    intent.putExtra(INTENT_KEY_EDIT, data.get(mPosition));
+    intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(mPosition).getHid());
+    startActivity(intent);
+  }
 }

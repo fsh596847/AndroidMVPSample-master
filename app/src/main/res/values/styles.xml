@@ -41,7 +41,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
+    <style name="BtnStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <!-- <item name="android:paddingTop">5dp</item>
+         <item name="android:paddingBottom">5dp</item>
+         <item name="android:paddingLeft">10dp</item>
+         <item name="android:paddingRight">10dp</item>-->
+        <item name="android:background">@drawable/btn_bg</item>
+        <item name="android:textSize">@dimen/main_text_title_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="TextTitleStyle">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
