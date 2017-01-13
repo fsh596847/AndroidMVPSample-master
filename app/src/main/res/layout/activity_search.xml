@@ -29,16 +29,29 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"/>
   </RelativeLayout>
-
-  <EditText
-      android:id="@+id/etSearch"
-      android:hint="请输入品种关键字"
-      android:gravity="center"
-      android:drawableLeft="@mipmap/search"
-      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
       android:background="@drawable/text_bg"
       android:layout_margin="@dimen/activity_horizontal_margin"
-      android:layout_width="match_parent" android:layout_height="@dimen/activity_add_Item_height"/>
+      android:layout_height="wrap_content">
+    <!--   <ImageView
+           android:src="@mipmap/serach2"
+           android:layout_width="wrap_content"
+           android:layout_gravity="center_vertical"
+           android:layout_margin="@dimen/activity_horizontal_margin"
+           android:layout_height="wrap_content"/>-->
+    <EditText
+        android:drawableLeft="@mipmap/serach2"
+        android:id="@+id/etSearch"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:drawablePadding="10dp"
+        android:background="@drawable/text_bottom_bg"
+        android:hint="请输入品种关键字"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_add_Item_height"/>
+
+  </LinearLayout>
 
 
   <RelativeLayout
