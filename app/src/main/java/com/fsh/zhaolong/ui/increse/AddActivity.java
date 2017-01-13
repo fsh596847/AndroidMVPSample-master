@@ -45,8 +45,8 @@ public class AddActivity extends MvpActivity<AddPresenter>
     implements AddView, AlertDialog.CallPayType, AddAdapter.CallBack, AddAdapter.ZengHang,
     ProjectAdapter.Freshen, ProjectDialog.CallPayType {
   public static final String INTENT_KEY_UNITNAME = "Unitname";
-  private final String JIN = "0";
-  private final String GONG_JIN = "1";
+  public final String JIN = "0";
+  public final String GONG_JIN = "1";
   private final int REUEST_CODE = 1;
   DecimalFormat df = new DecimalFormat("######0.00");
   //交货单位
@@ -512,7 +512,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     tvNetWeight.setText("净重:--");
     //废品
     wasteProduct = 0;
-    mTvWasteProductEt.setHint("--");
+    mTvWasteProductEt.setText("--");
     //实重
     trueWeight = 0;
     mTvTrueWeight.setText("实重:--");
