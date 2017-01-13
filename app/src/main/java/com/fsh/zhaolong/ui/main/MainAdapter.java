@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.fsh.zhaolong.R;
@@ -24,13 +24,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
   CallBack callBack;
   private List<MainResponse.DataBean> data;
   private Context context;
-  private List<String> listItem;
+  private Display display;
+  private int width;
 
   public MainAdapter(List<MainResponse.DataBean> data,
-      Context context, List<String> listItem) {
+      Context context) {
     this.data = data;
     this.context = context;
-    this.listItem = listItem;
+    display = ((MainActivity) context).getWindowManager().getDefaultDisplay();
+    width = display.getWidth() - 20;
   }
 
   @Override
@@ -52,16 +54,32 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
 
   @Override
   public void onBindViewHolder(final ItemViewHolder holder, final int position) {
+    //(width * 0.15));
+    //(width * 0.2));
+    //(width * 0.05));
+    //(width * 0.05));
+    //(width * 0.1));
+    //(width * 0.05));
+    //(width * 0.1));
+    //(width * 0.05));
+    //3.5
+    holder.tv1.setWidth((int) (width * 0.15));
+    holder.tv2.setWidth((int) (width * 0.15));
+    //1
+    holder.tv5.setWidth((int) (width * 0.13));
+    holder.tv6.setWidth((int) (width * 0.06));
+    //3
+    holder.tv7.setWidth((int) (width * 0.07));
+    holder.tv8.setWidth((int) (width * 0.07));
+    holder.tv9.setWidth((int) (width * 0.07));
+    holder.tv10.setWidth((int) (width * 0.07));
+    //1.8
+    holder.btn.setWidth((int) (width * 0.06));
+    holder.btnDel.setWidth((int) (width * 0.06));
+    holder.btnEdit.setWidth((int) (width * 0.06));
 
     holder.tv1.setText(data.get(position).getBillcode());
     holder.tv2.setText(data.get(position).getUnitname());
-    holder.tv3.setText(data.get(position).getVarietyname());
-
-    if (TextUtils.isEmpty(data.get(position).getTareweight())) {
-      holder.tv4.setText("--");
-    } else {
-      holder.tv4.setText(data.get(position).getSpec());
-    }
 
     holder.tv5.setText(data.get(position).getPeel());
 
@@ -88,9 +106,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     });
     holder.btn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        //if (callBack != null) {
-        //  callBack.call(data.get(position).getHid(), position);
-        //}
+        if (callBack != null) {
+          callBack.call(data.get(position).getHid(), position);
+        }
         //MainAlertDialog alertDialog = new MainAlertDialog(context).builder();
         //alertDialog.setTitle("温馨提示");
         //alertDialog.setList(listItem);
@@ -128,34 +146,31 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     LinearLayout lyt;
     TextView tv1;
     TextView tv2;
-    TextView tv3;
-    TextView tv4;
+
     TextView tv5;
     TextView tv6;
     TextView tv7;
     TextView tv8;
     TextView tv9;
     TextView tv10;
-    Button btn;
-    Button btnDel;
-    Button btnEdit;
+    TextView btn;
+    TextView btnDel;
+    TextView btnEdit;
 
     public ItemViewHolder(View view) {
       super(view);
       lyt = (LinearLayout) view.findViewById(R.id.lyt);
       tv1 = (TextView) view.findViewById(R.id.tv1);
       tv2 = (TextView) view.findViewById(R.id.tv2);
-      tv3 = (TextView) view.findViewById(R.id.tv3);
-      tv4 = (TextView) view.findViewById(R.id.tv4);
       tv5 = (TextView) view.findViewById(R.id.tv5);
       tv6 = (TextView) view.findViewById(R.id.tv6);
       tv7 = (TextView) view.findViewById(R.id.tv7);
       tv8 = (TextView) view.findViewById(R.id.tv8);
       tv9 = (TextView) view.findViewById(R.id.tv9);
       tv10 = (TextView) view.findViewById(R.id.tv10);
-      btn = (Button) view.findViewById(R.id.tv11);
-      btnDel = (Button) view.findViewById(R.id.tv12);
-      btnEdit = (Button) view.findViewById(R.id.tv13);
+      btn = (TextView) view.findViewById(R.id.tv11);
+      btnDel = (TextView) view.findViewById(R.id.tv12);
+      btnEdit = (TextView) view.findViewById(R.id.tv13);
     }
   }
 }

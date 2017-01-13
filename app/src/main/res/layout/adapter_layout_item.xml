@@ -20,72 +20,54 @@
 
     <TextView
         android:id="@+id/tv1"
-        android:layout_width="180dp"
         tools:text="2032565155214"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv2"
-        android:layout_width="230dp"
         android:singleLine="true"
         tools:text="广东省鱼苗批发总代理"
         style="@style/TextStyle2"/>
-    <TextView
-        android:id="@+id/tv3"
-        tools:text="@string/main_text_title3"
-        android:layout_width="100dp"
-        android:visibility="gone"
-        style="@style/TextStyle2"/>
-    <TextView
-        android:id="@+id/tv4"
-        tools:text="@string/main_text_title4"
-        android:layout_width="100dp"
-        android:visibility="gone"
-        style="@style/TextStyle2"/>
+
     <TextView
         android:id="@+id/tv5"
-        android:layout_width="100dp"
         tools:text="@string/main_text_title5"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv6"
         tools:text="@string/main_text_title6"
-        android:layout_width="60dp"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv7"
         tools:text="2222222222"
-        android:layout_width="100dp"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv8"
         tools:text="@string/main_text_title8"
-        android:layout_width="80dp"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv9"
         tools:text="999999999999"
-        android:layout_width="100dp"
         style="@style/TextStyle2"/>
     <TextView
         android:id="@+id/tv10"
         tools:text="@string/main_text_title10"
-        android:layout_width="80dp"
         style="@style/TextStyle2"/>
 
-    <Button
+    <TextView
         android:id="@+id/tv11"
-        android:text="@string/main_text_title12"
+        android:text="@string/main_text_title17"
+        android:layout_marginLeft="10dp"
         android:textSize="@dimen/main_text_title_size"
         style="@style/BtnStyle"
     />
-    <Button
+    <TextView
         android:id="@+id/tv12"
         android:text="@string/main_text_del"
         android:textSize="@dimen/main_text_title_size"
         android:layout_marginLeft="10dp"
         style="@style/BtnStyle"
     />
-    <Button
+    <TextView
         android:id="@+id/tv13"
         android:text="@string/main_text_edit"
         android:textSize="@dimen/main_text_title_size"

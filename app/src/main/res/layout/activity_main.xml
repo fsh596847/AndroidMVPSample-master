@@ -58,48 +58,41 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/tvTitle1"
         android:text="@string/main_text_title1"
-        android:layout_width="180dp"
         style="@style/TextStyle"/>
     <TextView
+        android:id="@+id/tvTitle2"
         android:text="@string/main_text_title2"
-        android:layout_width="230dp"
         style="@style/TextStyle"/>
+
     <TextView
-        android:text="@string/main_text_title3"
-        android:visibility="gone"
-        style="@style/TextStyle"/>
-    <TextView
-        android:text="@string/main_text_title4"
-        android:visibility="gone"
-        style="@style/TextStyle"/>
-    <TextView
+        android:id="@+id/tvTitle3"
         android:text="@string/main_text_title5"
-        android:layout_width="100dp"
         style="@style/TextStyle"/>
     <TextView
-        android:layout_width="60dp"
+        android:id="@+id/tvTitle4"
         android:text="@string/main_text_title6"
         style="@style/TextStyle"/>
     <TextView
-        android:layout_width="100dp"
+        android:id="@+id/tvTitle5"
         android:text="@string/main_text_title7"
         style="@style/TextStyle"/>
     <TextView
-        android:layout_width="80dp"
+        android:id="@+id/tvTitle6"
         android:text="@string/main_text_title8"
         style="@style/TextStyle"/>
     <TextView
-        android:layout_width="100dp"
+        android:id="@+id/tvTitle7"
         android:text="@string/main_text_title9"
         style="@style/TextStyle"/>
     <TextView
-        android:layout_width="80dp"
+        android:id="@+id/tvTitle8"
         android:text="@string/main_text_title10"
         style="@style/TextStyle"/>
 
     <TextView
-        android:layout_width="100dp"
+        android:id="@+id/tvTitle9"
         android:text="@string/main_text_title12"
         style="@style/TextStyle"
     />

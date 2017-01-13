@@ -73,9 +73,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginV
           startActivity(intent);
           finish();
           Toast.makeText(mActivity, "登录成功", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (status == Const.FAIL_STATUE) {
           FailSuccesssful longinResponse = new Gson().fromJson(model, FailSuccesssful.class);
           Toast.makeText(mActivity, longinResponse.getData(), Toast.LENGTH_SHORT).show();
+        } else {
+          Toast.makeText(mActivity, model, Toast.LENGTH_SHORT).show();
         }
       }
     } catch (Exception e) {
@@ -85,38 +87,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginV
 
   @Override public void getDataFail(String msg) {
     Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
-  }
-
-  //动态监听输入过程
-  private class MyTextWatcher implements TextWatcher {
-
-    private View view;
-
-    private MyTextWatcher(View view) {
-      this.view = view;
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-      switch (view.getId()) {
-        case R.id.input_name:
-          isNameValid();
-          break;
-        case R.id.input_password:
-          isPasswordValid();
-          break;
-      }
-    }
   }
 
   public boolean isNameValid() {
@@ -164,5 +134,37 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginV
     map.put("pwd", inputPassword.getText().toString());
     //mvpPresenter.login(inputName.getText().toString(), inputPassword.getText().toString())
     mvpPresenter.login(map);
+  }
+
+  //动态监听输入过程
+  private class MyTextWatcher implements TextWatcher {
+
+    private View view;
+
+    private MyTextWatcher(View view) {
+      this.view = view;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+      switch (view.getId()) {
+        case R.id.input_name:
+          isNameValid();
+          break;
+        case R.id.input_password:
+          isPasswordValid();
+          break;
+      }
+    }
   }
 }

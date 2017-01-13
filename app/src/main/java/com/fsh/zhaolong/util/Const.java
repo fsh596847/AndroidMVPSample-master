@@ -7,4 +7,5 @@ package com.fsh.zhaolong.util;
 public class Const {
 
   public static final int SUNNESS_STATUE=1;
+  public static final int FAIL_STATUE = 0;
 }

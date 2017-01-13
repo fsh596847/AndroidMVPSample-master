@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+import butterknife.Bind;
 import com.fsh.zhaolong.R;
 import com.fsh.zhaolong.bean.FailSuccesssful;
 import com.fsh.zhaolong.bean.MainResponse;
@@ -41,7 +43,16 @@ public class MainActivity extends MvpActivity<MainPresenter>
   public static final String INTENT_KEY_BREEDNAME = "BREEDNAME";
   //传递编辑
   public static final String INTENT_KEY_EDIT = "EDIT";
-  private SwipeRecyclerView recyclerView;
+  @Bind(R.id.tvTitle1) TextView tvTitle1;
+  @Bind(R.id.tvTitle2) TextView tvTitle2;
+  @Bind(R.id.tvTitle3) TextView tvTitle3;
+  @Bind(R.id.tvTitle4) TextView tvTitle4;
+  @Bind(R.id.tvTitle5) TextView tvTitle5;
+  @Bind(R.id.tvTitle6) TextView tvTitle6;
+  @Bind(R.id.tvTitle7) TextView tvTitle7;
+  @Bind(R.id.tvTitle8) TextView tvTitle8;
+  @Bind(R.id.tvTitle9) TextView tvTitle9;
+  @Bind(R.id.swipeRecyclerView) SwipeRecyclerView recyclerView;
   private List<MainResponse.DataBean> data;
   private MainAdapter adapter;
   private int totalPage;
@@ -50,8 +61,7 @@ public class MainActivity extends MvpActivity<MainPresenter>
   private String userid;
   private String mHid;
   private int mPosition;
-  //对话框
-  private List<String> listItem = new ArrayList<>();
+
 
   public static void CallIntent(Context context, String UNTID, String BREED, String BREEDName) {
     Intent intent = new Intent(context, MainActivity.class);
@@ -85,6 +95,20 @@ public class MainActivity extends MvpActivity<MainPresenter>
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    int width = getWindowManager().getDefaultDisplay().getWidth() - 20;
+    // 43
+    tvTitle1.setWidth((int) (width * 0.15));
+    tvTitle2.setWidth((int) (width * 0.15));
+    tvTitle3.setWidth((int) (width * 0.13));
+
+    tvTitle4.setWidth((int) (width * 0.06));
+    //28
+    tvTitle5.setWidth((int) (width * 0.07));
+    tvTitle6.setWidth((int) (width * 0.07));
+    tvTitle7.setWidth((int) (width * 0.07));
+    tvTitle8.setWidth((int) (width * 0.07));
+
+    tvTitle9.setWidth((int) (width * 0.2));
   }
 
   @Override protected MainPresenter createPresenter() {
@@ -92,16 +116,14 @@ public class MainActivity extends MvpActivity<MainPresenter>
   }
 
   @Override public void init() {
-    listItem.add("编辑");
-    listItem.add("删除");
-    recyclerView = (SwipeRecyclerView) findViewById(R.id.swipeRecyclerView);
+
     //set color
     recyclerView.getSwipeRefreshLayout()
         .setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
     //set layoutManager
     recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(this));
     data = new ArrayList<>();
-    adapter = new MainAdapter(data, mActivity, listItem);
+    adapter = new MainAdapter(data, mActivity);
     adapter.setCallBack(this);
     recyclerView.setAdapter(adapter);
     userid = PreferenceUtils.getPrefString(mActivity, "userid", null);
@@ -212,7 +234,6 @@ public class MainActivity extends MvpActivity<MainPresenter>
   }
 
   @Override public void callback(String dataBean, int i) {
-    Toast.makeText(mActivity, "暂未开通", Toast.LENGTH_SHORT).show();
     //Map<String, String> map = new HashMap<>();
     //map.put("userid", userid);
     //map.put("hid", mHid);
@@ -229,6 +250,7 @@ public class MainActivity extends MvpActivity<MainPresenter>
   @Override public void call(String hid, int position) {
     mHid = hid;
     mPosition = position;
+    Toast.makeText(mActivity, "暂未开通", Toast.LENGTH_SHORT).show();
   }
 
   @Override public void del(String hid, int position) {
