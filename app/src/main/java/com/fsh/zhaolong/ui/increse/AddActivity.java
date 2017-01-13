@@ -350,7 +350,16 @@ public class AddActivity extends MvpActivity<AddPresenter>
       Toast.makeText(mActivity, "请输入废品", Toast.LENGTH_SHORT).show();
       return;
     }
-
+    if (mDatas.size() > 0) {
+      for (int i = 0; i < mDatas.size(); i++) {
+        if (TextUtils.isEmpty(mDatas.get(i).getBreed()) ||
+            TextUtils.isEmpty(mDatas.get(i).getNorms()) || TextUtils.isEmpty(
+            mDatas.get(i).getRough())) {
+          Toast.makeText(mActivity, "请补全信息", Toast.LENGTH_SHORT).show();
+          return;
+        }
+      }
+    }
     String json = formJson();
     String userid = PreferenceUtils.getPrefString(mActivity, "userid", null);
     String Unitname = dataBean.getUnitname();
