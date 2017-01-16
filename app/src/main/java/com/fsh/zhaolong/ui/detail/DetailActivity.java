@@ -58,9 +58,9 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
     if (mDatas.size() >= 0) {
       String mea = model.getData().get(0).getMea();
       if (mea.equals(JIN)) {
-        detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_add_brother);
+        detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_detail_brother);
       } else if (mea.equals(GONG_JIN)) {
-        detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_add);
+        detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_detail);
       }
       recyclerView.setAdapter(detailAdapter);
     }

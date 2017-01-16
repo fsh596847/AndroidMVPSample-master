@@ -73,9 +73,9 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
       }
     });
 
-    if (((MyViewHolder) holder).tv2.getTag() instanceof TextWatcher) {
-      ((MyViewHolder) holder).tv2.removeTextChangedListener(
-          (TextWatcher) (((MyViewHolder) holder).tv2.getTag()));
+    if (holder.tv2.getTag() instanceof TextWatcher) {
+      holder.tv2.removeTextChangedListener(
+          (TextWatcher) (holder.tv2.getTag()));
     }
     holder.tv2.setText(mDatas.get(position).getNorms());
     //holder.tv2.setTag(position);
@@ -101,9 +101,9 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
     /**
      * 毛重
      */
-    if (((MyViewHolder) holder).tv3.getTag() instanceof TextWatcher) {
-      ((MyViewHolder) holder).tv3.removeTextChangedListener(
-          (TextWatcher) (((MyViewHolder) holder).tv3.getTag()));
+    if (holder.tv3.getTag() instanceof TextWatcher) {
+      holder.tv3.removeTextChangedListener(
+          (TextWatcher) (holder.tv3.getTag()));
     }
     holder.tv3.setText(mDatas.get(position).getRough());
     TextWatcher textWatcher = new TextWatcher() {

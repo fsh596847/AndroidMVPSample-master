@@ -83,7 +83,7 @@ public class UnitidActity extends MvpActivity<UntidPresenter> implements UnitidV
     }else {
       recyclerView.onNoMore("-- 没有更过了 --");
       //recyclerView.stopLoadingMore()
-        recyclerView.complete();;
+      recyclerView.complete();
     }
   }
 
