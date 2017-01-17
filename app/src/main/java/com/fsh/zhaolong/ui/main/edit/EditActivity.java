@@ -341,24 +341,24 @@ public class EditActivity extends MvpActivity<EditPresenter>
       for (int i1 = 0; i1 < mDatas.size(); i1++) {
         AddItemBean addItem = mDatas.get(i1);
         if (!TextUtils.isEmpty(addItem.getNorms())
-            && Integer.parseInt(addItem.getNorms()) > 0) {
-          addItem.setNorms(String.valueOf(Integer.parseInt(addItem.getNorms()) * 2));
+            && Double.parseDouble(addItem.getNorms()) > 0) {
+          addItem.setNorms(String.valueOf(Double.parseDouble(addItem.getNorms()) * 2));
         }
         if (!TextUtils.isEmpty(addItem.getRough())
-            && Integer.parseInt(addItem.getRough()) > 0) {
-          addItem.setRough(String.valueOf(Integer.parseInt(addItem.getRough()) * 2));
+            && Double.parseDouble(addItem.getRough()) > 0) {
+          addItem.setRough(String.valueOf(Double.parseDouble(addItem.getRough()) * 2));
         }
       }
     } else if (code.equals(GONG_JIN)) {//公斤
       for (int i1 = 0; i1 < mDatas.size(); i1++) {
         AddItemBean addItem = mDatas.get(i1);
         if (!TextUtils.isEmpty(addItem.getNorms())
-            && Integer.parseInt(addItem.getNorms()) > 0) {
-          addItem.setNorms(String.valueOf(Integer.parseInt(addItem.getNorms()) / 2));
+            && Double.parseDouble(addItem.getNorms()) > 0) {
+          addItem.setNorms(String.valueOf(Double.parseDouble(addItem.getNorms()) / 2));
         }
         if (!TextUtils.isEmpty(addItem.getRough())
-            && Integer.parseInt(addItem.getRough()) > 0) {
-          addItem.setRough(String.valueOf(Integer.parseInt(addItem.getRough()) / 2));
+            && Double.parseDouble(addItem.getRough()) > 0) {
+          addItem.setRough(String.valueOf(Double.parseDouble(addItem.getRough()) / 2));
         }
       }
     }
