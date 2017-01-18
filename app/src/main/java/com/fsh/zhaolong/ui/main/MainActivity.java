@@ -18,6 +18,7 @@ import com.fsh.zhaolong.swiperecyclerview.SwipeRecyclerView;
 import com.fsh.zhaolong.ui.detail.DetailActivity;
 import com.fsh.zhaolong.ui.increse.AddActivity;
 import com.fsh.zhaolong.ui.main.edit.EditActivity;
+import com.fsh.zhaolong.ui.print.PrintActivity;
 import com.fsh.zhaolong.ui.search.SearchActivity;
 import com.fsh.zhaolong.ui.view.MainAlertDialog;
 import com.fsh.zhaolong.ui.view.TalertDialog;
@@ -250,7 +251,10 @@ public class MainActivity extends MvpActivity<MainPresenter>
   @Override public void call(String hid, int position) {
     mHid = hid;
     mPosition = position;
-    Toast.makeText(mActivity, "暂未开通", Toast.LENGTH_SHORT).show();
+    Intent intent = new Intent(mActivity, PrintActivity.class);
+    intent.putExtra(INTENT_KEY_EDIT, data.get(mPosition));
+    intent.putExtra(DetailActivity.INTEN_KEY_HID, hid);
+    startActivity(intent);
   }
 
   @Override public void del(String hid, int position) {

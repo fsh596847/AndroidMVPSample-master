@@ -23,7 +23,7 @@ import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.bean.UntidResponse;
 import com.fsh.zhaolong.mvp.other.MvpActivity;
 import com.fsh.zhaolong.ui.detail.DetailActivity;
-import com.fsh.zhaolong.ui.main.MainActivity;
+import com.fsh.zhaolong.ui.print.PrintActivity;
 import com.fsh.zhaolong.ui.unitid.UnitidActity;
 import com.fsh.zhaolong.ui.view.AlertDialog;
 import com.fsh.zhaolong.ui.view.ProjectDialog;
@@ -39,6 +39,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static com.fsh.zhaolong.ui.main.MainActivity.INTENT_KEY_EDIT;
 import static java.lang.Double.parseDouble;
 
 /**
@@ -118,7 +119,8 @@ public class EditActivity extends MvpActivity<EditPresenter>
   //交货单位
   private String Unitname;
   private String Unitid;
-
+  //划码单对象
+  MainResponse.DataBean dataBean;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -139,8 +141,8 @@ public class EditActivity extends MvpActivity<EditPresenter>
     map.put("hid", getIntent().getStringExtra(DetailActivity.INTEN_KEY_HID));
     mvpPresenter.phoneueryMakCodeDatail(map);
 
-    MainResponse.DataBean dataBean =
-        (MainResponse.DataBean) getIntent().getSerializableExtra(MainActivity.INTENT_KEY_EDIT);
+    dataBean =
+        (MainResponse.DataBean) getIntent().getSerializableExtra(INTENT_KEY_EDIT);
     Unitname = dataBean.getUnitname();
     Unitid = dataBean.getUnitid();
     //单位.
@@ -271,6 +273,9 @@ public class EditActivity extends MvpActivity<EditPresenter>
     if (model.getStatus() == Const.SUNNESS_STATUE) {
       Toast.makeText(mActivity, model.getData(), Toast.LENGTH_SHORT).show();
       finish();
+      if (isPrint) {
+        print();
+      }
     } else {
       Toast.makeText(mActivity, model.getData(), Toast.LENGTH_SHORT).show();
     }
@@ -366,13 +371,24 @@ public class EditActivity extends MvpActivity<EditPresenter>
   }
 
   public void saveClick(View view) {
-    //String projectid = null;
-    //for (int i = 0; i < mProjects.size(); i++) {
-    //  if (mProjects.get(i).isCheck()) {
-    //    projectid = mProjects.get(i).getProjectid();
-    //    break;
-    //  }
-    //}
+    save();
+  }
+
+  private boolean isPrint;
+
+  public void savePrintClick(View view) {
+    isPrint = true;
+    save();
+  }
+
+  private void print() {
+    Intent intent = new Intent(mActivity, PrintActivity.class);
+    intent.putExtra(INTENT_KEY_EDIT, dataBean);
+    intent.putExtra(DetailActivity.INTEN_KEY_HID, hid);
+    startActivity(intent);
+  }
+
+  private void save() {
     if (TextUtils.isEmpty(tv1.getText().toString())) {
       Toast.makeText(mActivity, "请选择交货单位", Toast.LENGTH_SHORT).show();
       return;
@@ -404,7 +420,6 @@ public class EditActivity extends MvpActivity<EditPresenter>
     String json = formJson();
     String userid = PreferenceUtils.getPrefString(mActivity, "userid", null);
 
-
     Map<String, String> queryParam = new HashMap<>();
     queryParam.put("userid", userid);
     queryParam.put("unitname", Unitname);
@@ -419,10 +434,6 @@ public class EditActivity extends MvpActivity<EditPresenter>
     queryParam.put("projectname", projectName);
     queryParam.put("hid", hid);
     mvpPresenter.phoneAddMakCode(queryParam);
-    //mvpPresenter.phoneAddMakCode(userid,Unitname,Unitid,wasteProduct,
-    //    etRemarks.getText().toString(),code, tv3.getText().toString(),tv.getText().toString()
-    //,json,
-    //    projectid);
   }
 
   public String formJson() {

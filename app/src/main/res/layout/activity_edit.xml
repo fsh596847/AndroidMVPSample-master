@@ -297,6 +297,7 @@
             android:text="保存打印"
             android:drawablePadding="10dp"
             android:gravity="center"
+            android:onClick="savePrintClick"
             android:drawableTop="@mipmap/save_print"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"

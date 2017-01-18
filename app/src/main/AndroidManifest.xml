@@ -74,7 +74,10 @@
         android:windowSoftInputMode="adjustUnspecified|stateHidden"
         android:name="com.fsh.zhaolong.ui.main.edit.EditActivity"
     />
-
+    <activity
+        android:name=".ui.print.PrintActivity"
+        android:label="@string/title_activity_print"
+    />
   </application>
 
 </manifest>

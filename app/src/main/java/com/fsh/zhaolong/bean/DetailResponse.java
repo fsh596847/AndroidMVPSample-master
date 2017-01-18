@@ -74,7 +74,7 @@ public class DetailResponse extends BaseResponse<List<DetailResponse.DataBean>> 
     private double grossweight;
     private double tareweight;
     private double totalgrossweight;
-
+    private double price;
 
   }
 }

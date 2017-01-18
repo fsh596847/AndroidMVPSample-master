@@ -76,5 +76,6 @@ public class MainResponse extends BaseResponse<List<MainResponse.DataBean>>
     private String totalgrossweight;
     private String projectname;
     private String projectid;
+    private String remark;
   }
 }
