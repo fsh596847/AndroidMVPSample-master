@@ -18,8 +18,11 @@ import com.fsh.zhaolong.bean.AddItemBean;
 import com.fsh.zhaolong.bean.AddProjrctResponse;
 import com.fsh.zhaolong.bean.AddResponse;
 import com.fsh.zhaolong.bean.AddResponseSuccessful;
+import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.bean.UntidResponse;
 import com.fsh.zhaolong.mvp.other.MvpActivity;
+import com.fsh.zhaolong.ui.detail.DetailActivity;
+import com.fsh.zhaolong.ui.print.PrintActivity;
 import com.fsh.zhaolong.ui.unitid.UnitidActity;
 import com.fsh.zhaolong.ui.view.AlertDialog;
 import com.fsh.zhaolong.ui.view.ProjectDialog;
@@ -35,6 +38,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static com.fsh.zhaolong.ui.main.MainActivity.INTENT_KEY_EDIT;
 import static java.lang.Double.parseDouble;
 
 /**
@@ -109,7 +113,8 @@ public class AddActivity extends MvpActivity<AddPresenter>
   private List<AddProjrctResponse.DataBean> mProjects = new ArrayList<>();
   private ProjectAdapter projectAdapter;
   private int mItem = 0;
-
+  //划码单对象
+  private MainResponse.DataBean mainDataBean;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -240,10 +245,22 @@ public class AddActivity extends MvpActivity<AddPresenter>
     if (model.getStatus() == Const.SUNNESS_STATUE) {
       Toast.makeText(mActivity, model.getData(), Toast.LENGTH_SHORT).show();
       finish();
+      if (isPrint) {
+        print(model.getHid());
+      }
     } else {
       Toast.makeText(mActivity, model.getData(), Toast.LENGTH_SHORT).show();
     }
   }
+
+  private void print(String hid) {
+
+    Intent intent = new Intent(mActivity, PrintActivity.class);
+    intent.putExtra(INTENT_KEY_EDIT, mainDataBean);
+    intent.putExtra(DetailActivity.INTEN_KEY_HID, hid);
+    startActivity(intent);
+  }
+
 
   @Override public void getDataFail(String msg) {
     Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
@@ -315,7 +332,18 @@ public class AddActivity extends MvpActivity<AddPresenter>
     return mDatas;
   }
 
+  private boolean isPrint;
+
+  public void savePriteClick(View view) {
+    mainDataBean = new MainResponse.DataBean();
+    isPrint = true;
+    save();
+  }
   public void saveClick(View view) {
+    save();
+  }
+
+  private void save() {
     //String projectid = null;
     //for (int i = 0; i < mProjects.size(); i++) {
     //  if (mProjects.get(i).isCheck()) {
@@ -377,6 +405,16 @@ public class AddActivity extends MvpActivity<AddPresenter>
     queryParam.put("dataList", json);
     queryParam.put("projectid", projectid);
     queryParam.put("projectname", projectName);
+    mainDataBean.setUserid(userid);
+    mainDataBean.setUnitname(Unitname);
+    mainDataBean.setUnitid(Unitid);
+    mainDataBean.setTotalwaste(mTvWasteProductEt.getText().toString());
+    mainDataBean.setRemark(etRemarks.getText().toString());
+    mainDataBean.setMea(code);
+    mainDataBean.setPeel(tv3.getText().toString());
+    mainDataBean.setDeliveryaddress(tv.getText().toString().trim());
+    mainDataBean.setProjectid(projectid);
+    mainDataBean.setProjectname(projectid);
     mvpPresenter.phoneAddMakCode(queryParam);
     //mvpPresenter.phoneAddMakCode(userid,Unitname,Unitid,wasteProduct,
     //    etRemarks.getText().toString(),code, tv3.getText().toString(),tv.getText().toString()

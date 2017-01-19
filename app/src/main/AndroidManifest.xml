@@ -75,12 +75,6 @@
         android:name="com.fsh.zhaolong.ui.main.edit.EditActivity"
     />
 
-    <activity
-        android:screenOrientation="landscape"
-        android:name=".ui.print.PrintActivity"
-        android:label="@string/title_activity_print"
-        android:windowSoftInputMode="adjustUnspecified|stateHidden"
-    ></activity>
   </application>
 
 </manifest>
