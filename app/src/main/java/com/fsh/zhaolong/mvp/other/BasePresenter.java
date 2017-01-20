@@ -1,8 +1,10 @@
 package com.fsh.zhaolong.mvp.other;
 
+import android.app.Activity;
 import com.fsh.zhaolong.retrofit.ApiStores;
 import com.fsh.zhaolong.retrofit.AppClient;
 
+import com.fsh.zhaolong.util.NetUtil;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -10,14 +12,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 
-/**
- * Created by WuXiaolong
- * on 2015/9/23.
- * github:https://github.com/WuXiaolong/
- * weibo:http://weibo.com/u/2175011601
- * 微信公众号：吴小龙同学
- * 个人博客：http://wuxiaolong.me/
- */
+
 public class BasePresenter<V> {
     public V mvpView;
     protected ApiStores apiStores;
@@ -44,6 +39,10 @@ public class BasePresenter<V> {
 
 
     public void addSubscription(Observable observable, Subscriber subscriber) {
+        if (!NetUtil.isConnected((Activity) mvpView)) {
+
+            return;
+        }
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
         }

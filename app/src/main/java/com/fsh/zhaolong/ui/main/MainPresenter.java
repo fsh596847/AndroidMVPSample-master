@@ -15,6 +15,7 @@ public class MainPresenter extends BasePresenter<MainView> {
   }
 
   public void projectList(Map<String, String> map) {
+
     mvpView.showLoading();
     addSubscription(apiStores.projectList(map),
         new ApiCallback<String>() {

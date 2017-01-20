@@ -3,6 +3,8 @@
     package="com.fsh.zhaolong">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
   <application
       android:allowBackup="true"
       android:icon="@mipmap/logo"
@@ -74,6 +76,12 @@
         android:windowSoftInputMode="adjustUnspecified|stateHidden"
         android:name="com.fsh.zhaolong.ui.main.edit.EditActivity"
     />
+    <activity
+        android:screenOrientation="landscape"
+        android:name=".ui.print.PrintActivity"
+        android:label="@string/title_activity_print"
+        android:windowSoftInputMode="adjustUnspecified|stateHidden"
+    ></activity>
 
   </application>
 
