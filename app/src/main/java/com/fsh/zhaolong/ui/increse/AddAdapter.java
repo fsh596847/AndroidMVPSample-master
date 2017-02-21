@@ -44,7 +44,7 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
   @Override
   public void onBindViewHolder(final MyViewHolder holder, final int position) {
     holder.tv1.setText(mDatas.get(position).getBreed());
-
+    holder.tvNum.setText(String.valueOf(position + 1));
     holder.btn.setTag(position);
     if (position == mDatas.size() - 1) {
       holder.btn.setText("增行");
@@ -163,6 +163,7 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
   }
 
   class MyViewHolder extends RecyclerView.ViewHolder {
+    TextView tvNum;
     TextView tv1;
     EditText tv2;
     EditText tv3;
@@ -170,6 +171,7 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
 
     public MyViewHolder(View view) {
       super(view);
+      tvNum = (TextView) view.findViewById(R.id.tvNum);
       tv1 = (TextView) view.findViewById(R.id.tv1);
       tv2 = (EditText) view.findViewById(R.id.tv2);
       tv3 = (EditText) view.findViewById(R.id.tv3);

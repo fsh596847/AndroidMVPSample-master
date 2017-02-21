@@ -11,17 +11,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.fsh.zhaolong.R;
 import com.fsh.zhaolong.bean.DetailResponse;
+import com.fsh.zhaolong.bean.FailSuccesssful;
 import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.ui.main.MainActivity;
+import com.fsh.zhaolong.util.Const;
 import com.fsh.zhaolong.util.PreferenceUtils;
 import com.google.gson.Gson;
 import com.jolimark.printerlib.DeviceInfo;
@@ -29,16 +31,15 @@ import com.jolimark.printerlib.RemotePrinter;
 import com.jolimark.printerlib.VAR.PrinterType;
 import com.jolimark.printerlib.VAR.TransType;
 import com.jolimark.printerlib.util.WifiPrinterIPUtil.RefleshHandler;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class PrintActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,10 +113,31 @@ public class PrintActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        String htmlStr = response.body().string();
-                        Gson gson = new Gson();
-                        DetailResponse dr = gson.fromJson(htmlStr, DetailResponse.class);
-                        mHandler.obtainMessage(msgQueryDetailResponseOk, dr).sendToTarget();
+                        try {
+                            String htmlStr = response.body().string();
+                            if (!TextUtils.isEmpty(htmlStr)) {
+                                JSONObject jsonObject = new JSONObject(htmlStr);
+                                int status = jsonObject.getInt("status");
+                                if (status == Const.SUNNESS_STATUE) {
+                                    Gson gson = new Gson();
+                                    DetailResponse dr =
+                                        gson.fromJson(htmlStr, DetailResponse.class);
+                                    mHandler.obtainMessage(msgQueryDetailResponseOk, dr)
+                                        .sendToTarget();
+                                } else {
+                                    FailSuccesssful failSuccesssful =
+                                        new Gson().fromJson(htmlStr, FailSuccesssful.class);
+                                    mHandler.obtainMessage(msgQueryDetailResponseFail,
+                                        failSuccesssful.getData())
+                                        .sendToTarget();
+                                }
+                            } else {
+                                mHandler.obtainMessage(msgQueryDetailResponseFail, "返回数据异常")
+                                    .sendToTarget();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
             }
         });
             }

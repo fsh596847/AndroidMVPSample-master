@@ -46,4 +46,5 @@
     <string name="add_text_gongjin">公斤</string>
     <string name="add_text_jin">斤</string>
     <string name="title_activity_print">打印</string>
+    <string name="pressagainlog">再按一次退出程序</string>
 </resources>

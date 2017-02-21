@@ -100,7 +100,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     holder.lyt.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(position).getHid());
+        intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(position));
         context.startActivity(intent);
       }
     });

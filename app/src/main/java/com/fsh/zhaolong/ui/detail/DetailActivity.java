@@ -5,9 +5,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import butterknife.Bind;
 import com.fsh.zhaolong.R;
 import com.fsh.zhaolong.bean.DetailResponse;
+import com.fsh.zhaolong.bean.MainResponse;
 import com.fsh.zhaolong.mvp.other.MvpActivity;
 import com.fsh.zhaolong.util.PreferenceUtils;
 import java.util.ArrayList;
@@ -24,10 +26,34 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
   public static final String INTEN_KEY_HID = "HID";
   public final String JIN = "0";
   public final String GONG_JIN = "1";
-  @Bind(R.id.RecyclerView) RecyclerView recyclerView;
   private List<DetailResponse.DataBean> mDatas;
   private DetailAdapter detailAdapter;
-
+  @Bind(R.id.RecyclerView) RecyclerView recyclerView;
+  //交货单位
+  @Bind(R.id.tv1) TextView tv1;
+  //地址
+  @Bind(R.id.tvaddress) TextView tv;
+  //去皮
+  @Bind(R.id.tv3) TextView tvPeel;
+  //单位
+  @Bind(R.id.tv2) TextView tv2;
+  //净重
+  @Bind(R.id.netWeight) TextView tvNetWeight;
+  //时间
+  @Bind(R.id.tvDate) TextView tvDate;
+  @Bind(R.id.tvproject) TextView tvproject;
+  //备注
+  @Bind(R.id.etRemarks) TextView etRemarks;
+  //件数
+  @Bind(R.id.numPage) TextView mTvNum;
+  //毛重
+  @Bind(R.id.roughWeight) TextView mTvRoughWeight;
+  //皮重
+  @Bind(R.id.tareWeight) TextView mTvTareWeight;
+  //废品
+  @Bind(R.id.wasteProduct) TextView mTvWasteProductEt;
+  //实重
+  @Bind(R.id.trueWeight) TextView mTvTrueWeight;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -46,11 +72,29 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
     mDatas = new ArrayList<>();
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+    MainResponse.DataBean dataBean =
+        (MainResponse.DataBean) getIntent().getSerializableExtra(INTEN_KEY_HID);
     Map<String, String> map = new HashMap<>();
     map.put("userid", PreferenceUtils.getPrefString(mActivity, "userid", null));
-    map.put("hid", getIntent().getStringExtra(INTEN_KEY_HID));
+    map.put("hid", dataBean.getHid());
     mvpPresenter.phoneueryMakCodeDatail(map);
+    tvproject.setText(dataBean.getProjectname());
+    tv1.setText(dataBean.getUnitname());
+    tv.setText(dataBean.getDeliveryaddress());
+    tvDate.setText(dataBean.getBilldate());
+    tvPeel.setText(dataBean.getPeel());
+    etRemarks.setText(dataBean.getRemark());
+    if (dataBean.getMea().equals("1")) {
+      tv2.setText(getString(R.string.add_text_gongjin));
+    } else {
+      tv2.setText(getString(R.string.add_text_jin));
+    }
+    tvNetWeight.setText("净重：" + dataBean.getNetweight());
+    mTvRoughWeight.setText("毛重：" + dataBean.getRealweight());
+    mTvTareWeight.setText("皮重：" + dataBean.getTareweight());
+    mTvWasteProductEt.setText("废品：" + dataBean.getTotalwaste());
+    mTvTrueWeight.setText("实重：" + dataBean.getTotalrealweight());
+    mTvNum.setText("件数：" + dataBean.getTotalnum());
   }
 
   @Override public void getDataSuccess(DetailResponse model) {

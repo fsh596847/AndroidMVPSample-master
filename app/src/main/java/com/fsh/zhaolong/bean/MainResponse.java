@@ -77,5 +77,6 @@ public class MainResponse extends BaseResponse<List<MainResponse.DataBean>>
     private String projectname;
     private String projectid;
     private String remark;
+    private String billdate;
   }
 }

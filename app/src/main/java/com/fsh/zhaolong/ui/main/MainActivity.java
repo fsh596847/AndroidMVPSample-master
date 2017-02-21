@@ -283,4 +283,15 @@ public class MainActivity extends MvpActivity<MainPresenter>
     intent.putExtra(DetailActivity.INTEN_KEY_HID, data.get(mPosition).getHid());
     startActivity(intent);
   }
+
+  private long mExitTime;
+
+  @Override public void onBackPressed() {
+    if ((System.currentTimeMillis() - mExitTime) > 1000) {
+      Toast.makeText(this, getString(R.string.pressagainlog), Toast.LENGTH_SHORT).show();
+      mExitTime = System.currentTimeMillis();
+    } else {
+      finish();
+    }
+  }
 }
