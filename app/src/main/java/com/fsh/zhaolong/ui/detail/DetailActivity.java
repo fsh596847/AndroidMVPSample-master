@@ -89,9 +89,9 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
     } else {
       tv2.setText(getString(R.string.add_text_jin));
     }
-    tvNetWeight.setText("净重：" + dataBean.getNetweight());
-    mTvRoughWeight.setText("毛重：" + dataBean.getRealweight());
-    mTvTareWeight.setText("皮重：" + dataBean.getTareweight());
+    tvNetWeight.setText("净重：" + dataBean.getTotalnetweight());
+    mTvRoughWeight.setText("毛重：" + dataBean.getTotalgrossweight());
+    mTvTareWeight.setText("皮重：" + dataBean.getPeel());
     mTvWasteProductEt.setText("废品：" + dataBean.getTotalwaste());
     mTvTrueWeight.setText("实重：" + dataBean.getTotalrealweight());
     mTvNum.setText("件数：" + dataBean.getTotalnum());

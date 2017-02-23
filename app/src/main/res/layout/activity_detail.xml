@@ -60,7 +60,6 @@
             android:id="@+id/tvproject"
             android:hint="请选择项目"
             style="@style/AddTextTitleStyle2"
-            android:drawableRight="@mipmap/next"
         />
 
       </RelativeLayout>
@@ -81,7 +80,6 @@
             android:id="@+id/tv1"
             android:hint="请选择交货单位"
             style="@style/AddTextTitleStyle2"
-            android:drawableRight="@mipmap/next"
         />
 
       </RelativeLayout>
@@ -123,7 +121,6 @@
         <TextView
             android:id="@+id/tv2"
             android:hint="公斤"
-            android:drawableRight="@mipmap/next"
             style="@style/AddTextTitleStyle2"/>
       </RelativeLayout>
 

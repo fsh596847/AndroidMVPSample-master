@@ -47,7 +47,11 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
     holder.tvNum.setText(String.valueOf(position + 1));
     holder.btn.setTag(position);
     if (position == mDatas.size() - 1) {
+      //if(mDatas.get(position).getBreed()!=null&&mDatas.get(position).getNorms()!=null){
       holder.btn.setText("增行");
+      //}else {
+      //  holder.btn.setText("删除");
+      //}
     } else {
       holder.btn.setText("删除");
     }
@@ -56,7 +60,7 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
         if (Integer.parseInt(holder.btn.getTag().toString()) == position) {
           if (position == mDatas.size() - 1) {
             if (zengHang != null) {
-              zengHang.add(position + 1);
+              zengHang.add(position + 1, mDatas.get(position));
             }
           } else {
             zengHang.remove(position);
@@ -152,7 +156,7 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.MyViewHolder> {
 
   public interface ZengHang {
 
-    void add(int pos);
+    void add(int pos, AddItemBean addItemBean);
 
     void remove(int pos);
   }

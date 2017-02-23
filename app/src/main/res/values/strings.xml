@@ -21,6 +21,7 @@
     <string name="main_title">划码工作台</string>
     <string name="main_add">新增</string>
     <string name="main_search">搜索</string>
+    <string name="main_text_title0">序号</string>
     <string name="main_text_title1">流水号</string>
     <string name="main_text_title2">交货单位</string>
     <string name="main_text_title3">品种</string>
@@ -36,7 +37,7 @@
     <string name="main_text_title12">操作</string>
     <string name="main_text_title13">单位</string>
     <string name="main_text_title17">打印</string>
-    <string name="main_text_edit">编辑</string>
+    <string name="main_text_edit">修改</string>
     <string name="main_text_del">删除</string>
     <string name="main_text_title14">交货地址</string>
     <string name="main_text_title15">交货单位</string>

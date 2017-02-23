@@ -131,7 +131,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   }
 
   @Override public void init() {
-
+    mainDataBean = new MainResponse.DataBean();
     tvDate.setText(DateUtil.actualTime());
     mDatas = new ArrayList<>();
     initData(0);
@@ -335,7 +335,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   private boolean isPrint;
 
   public void savePriteClick(View view) {
-    mainDataBean = new MainResponse.DataBean();
+
     isPrint = true;
     save();
   }
@@ -591,7 +591,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
   /**
    * 增加行 1.增加行之前确认头部信息填写
    */
-  @Override public void add(int pos) {
+  @Override public void add(int pos, AddItemBean ItemBean) {
 
     if (TextUtils.isEmpty(tv3.getText().toString())) {
       Toast.makeText(mActivity, "请填写去皮", Toast.LENGTH_SHORT).show();
@@ -610,9 +610,9 @@ public class AddActivity extends MvpActivity<AddPresenter>
     }
     //if (pos < mDatas.size()) {
     AddItemBean addItemBean = new AddItemBean();
-    //addItemBean.setBreed("");//品种
+    addItemBean.setBreed(ItemBean.getBreed());//品种
     //addItemBean.setBreedId("");
-    //addItemBean.setNorms("0");//规格
+    addItemBean.setNorms(ItemBean.getNorms());//规格
     //addItemBean.setRough("0");//毛重
     mDatas.add(addItemBean);
     myadapter.notifyDataSetChanged();

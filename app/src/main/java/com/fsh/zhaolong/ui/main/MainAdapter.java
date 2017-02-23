@@ -63,21 +63,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     //(width * 0.1));
     //(width * 0.05));
     //3.5
-    holder.tv1.setWidth((int) (width * 0.15));
-    holder.tv2.setWidth((int) (width * 0.15));
+    holder.tv0.setWidth((int) (width * 0.05));
+    holder.tv1.setWidth((int) (width * 0.14));
+    holder.tv2.setWidth((int) (width * 0.14));
     //1
-    holder.tv5.setWidth((int) (width * 0.13));
+    holder.tv5.setWidth((int) (width * 0.12));
     holder.tv6.setWidth((int) (width * 0.06));
     //3
-    holder.tv7.setWidth((int) (width * 0.07));
-    holder.tv8.setWidth((int) (width * 0.07));
+    holder.tv7.setWidth((int) (width * 0.06));
+    holder.tv8.setWidth((int) (width * 0.06));
     holder.tv9.setWidth((int) (width * 0.07));
     holder.tv10.setWidth((int) (width * 0.07));
     //1.8
     holder.btn.setWidth((int) (width * 0.06));
     holder.btnDel.setWidth((int) (width * 0.06));
     holder.btnEdit.setWidth((int) (width * 0.06));
-
+    holder.tv0.setText(String.valueOf(position + 1));
     holder.tv1.setText(data.get(position).getBillcode());
     holder.tv2.setText(data.get(position).getUnitname());
 
@@ -146,7 +147,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     LinearLayout lyt;
     TextView tv1;
     TextView tv2;
-
+    TextView tv0;
     TextView tv5;
     TextView tv6;
     TextView tv7;
@@ -160,6 +161,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     public ItemViewHolder(View view) {
       super(view);
       lyt = (LinearLayout) view.findViewById(R.id.lyt);
+      tv0 = (TextView) view.findViewById(R.id.tv0);
       tv1 = (TextView) view.findViewById(R.id.tv1);
       tv2 = (TextView) view.findViewById(R.id.tv2);
       tv5 = (TextView) view.findViewById(R.id.tv5);
