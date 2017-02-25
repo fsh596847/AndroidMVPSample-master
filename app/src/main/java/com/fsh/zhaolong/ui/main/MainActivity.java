@@ -104,12 +104,12 @@ public class MainActivity extends MvpActivity<MainPresenter>
     tvTitle2.setWidth((int) (width * 0.14));
     tvTitle3.setWidth((int) (width * 0.12));
 
-    tvTitle4.setWidth((int) (width * 0.05));
+    tvTitle4.setWidth((int) (width * 0.08));
     //28
     tvTitle5.setWidth((int) (width * 0.06));
     tvTitle6.setWidth((int) (width * 0.06));
-    tvTitle7.setWidth((int) (width * 0.07));
-    tvTitle8.setWidth((int) (width * 0.07));
+    tvTitle7.setWidth((int) (width * 0.06));
+    tvTitle8.setWidth((int) (width * 0.06));
 
     tvTitle9.setWidth((int) (width * 0.2));
   }

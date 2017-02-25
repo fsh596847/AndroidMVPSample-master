@@ -146,6 +146,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
     Unitname = dataBean.getUnitname();
     Unitid = dataBean.getUnitid();
     //单位.
+    code = dataBean.getMea();
     if (dataBean.getMea().equals(GONG_JIN)) {
       tv2.setText("公斤");
     } else {
@@ -167,7 +168,6 @@ public class EditActivity extends MvpActivity<EditPresenter>
     //废品
     mTvWasteProductEt.setText(dataBean.getTotalwaste());
     //实重mTvTrueWeight
-
     //时间
     tvDate.setText(DateUtil.actualTime());
     tv3.addTextChangedListener(new MyTextWatch(tv3));
@@ -175,6 +175,7 @@ public class EditActivity extends MvpActivity<EditPresenter>
   }
 
   private void initRecycle() {
+    mDatas = analyzeCode();
     if (code.equals(GONG_JIN)) {
       myadapter = new EditAdapter(mActivity, mDatas, R.layout.adapter_add);
     } else if (code.equals(JIN)) {
@@ -328,13 +329,13 @@ public class EditActivity extends MvpActivity<EditPresenter>
       tv2.setText(dataBean.getVarietyname());
       //code 不同 算法也不同
       code = dataBean.getVarietycode();
-      if (!code.equals(middleCode)) {
-        mDatas = analyzeCode();
+      //if (!code.equals(middleCode)) {
+      //mDatas = analyzeCode();
         initRecycle();
         tongJi();
         countWasteProduct();
         middleCode = dataBean.getVarietycode();
-      }
+      //}else {}
     }
   }
 

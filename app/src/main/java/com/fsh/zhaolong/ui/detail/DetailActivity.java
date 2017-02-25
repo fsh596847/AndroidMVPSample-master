@@ -54,6 +54,8 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
   @Bind(R.id.wasteProduct) TextView mTvWasteProductEt;
   //实重
   @Bind(R.id.trueWeight) TextView mTvTrueWeight;
+  //单位
+  private String code;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -70,6 +72,7 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
 
   @Override public void init() {
     mDatas = new ArrayList<>();
+
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     MainResponse.DataBean dataBean =
@@ -84,7 +87,8 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
     tvDate.setText(dataBean.getBilldate());
     tvPeel.setText(dataBean.getPeel());
     etRemarks.setText(dataBean.getRemark());
-    if (dataBean.getMea().equals("1")) {
+    code = dataBean.getMea();
+    if (code.equals("1")) {
       tv2.setText(getString(R.string.add_text_gongjin));
     } else {
       tv2.setText(getString(R.string.add_text_jin));
@@ -100,10 +104,10 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
   @Override public void getDataSuccess(DetailResponse model) {
     mDatas = model.getData();
     if (mDatas.size() >= 0) {
-      String mea = model.getData().get(0).getMea();
-      if (mea.equals(JIN)) {
+      analyzeCode();
+      if (code.equals(JIN)) {
         detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_detail_brother);
-      } else if (mea.equals(GONG_JIN)) {
+      } else if (code.equals(GONG_JIN)) {
         detailAdapter = new DetailAdapter(mActivity, mDatas, R.layout.adapter_detail);
       }
       recyclerView.setAdapter(detailAdapter);
@@ -112,6 +116,34 @@ public class DetailActivity extends MvpActivity<DetailPresenter> implements Deta
 
   @Override public void getDataFail(String msg) {
 
+  }
+
+  /**
+   * 根据 斤和公斤 初始化list
+   */
+  private List<DetailResponse.DataBean> analyzeCode() {
+    if (code.equals(JIN)) {//斤
+      for (int i1 = 0; i1 < mDatas.size(); i1++) {
+        DetailResponse.DataBean addItem = mDatas.get(i1);
+        if (addItem.getSpec() > 0) {
+          addItem.setSpec(addItem.getSpec() * 2);
+        }
+        if (addItem.getGrossweight() > 0) {
+          addItem.setGrossweight(addItem.getGrossweight() * 2);
+        }
+      }
+    } else if (code.equals(GONG_JIN)) {//公斤
+      for (int i1 = 0; i1 < mDatas.size(); i1++) {
+        DetailResponse.DataBean addItem = mDatas.get(i1);
+        if (addItem.getSpec() > 0) {
+          addItem.setSpec(addItem.getSpec() / 2);
+        }
+        if (addItem.getGrossweight() > 0) {
+          addItem.setGrossweight(addItem.getGrossweight() / 2);
+        }
+      }
+    }
+    return mDatas;
   }
 
 }

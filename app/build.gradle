@@ -37,4 +37,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     provided 'org.projectlombok:lombok:1.12.6'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
+    compile files('libs/RemotePrinter_V2.2.jar')
 }

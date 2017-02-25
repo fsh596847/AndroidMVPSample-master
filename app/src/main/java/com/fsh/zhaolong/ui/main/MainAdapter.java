@@ -68,12 +68,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ItemViewHolder
     holder.tv2.setWidth((int) (width * 0.14));
     //1
     holder.tv5.setWidth((int) (width * 0.12));
-    holder.tv6.setWidth((int) (width * 0.06));
+    holder.tv6.setWidth((int) (width * 0.08));
     //3
     holder.tv7.setWidth((int) (width * 0.06));
     holder.tv8.setWidth((int) (width * 0.06));
-    holder.tv9.setWidth((int) (width * 0.07));
-    holder.tv10.setWidth((int) (width * 0.07));
+    holder.tv9.setWidth((int) (width * 0.06));
+    holder.tv10.setWidth((int) (width * 0.06));
     //1.8
     holder.btn.setWidth((int) (width * 0.06));
     holder.btnDel.setWidth((int) (width * 0.06));

@@ -290,13 +290,13 @@ public class AddActivity extends MvpActivity<AddPresenter>
       tv2.setText(dataBean.getVarietyname());
       //code 不同 算法也不同
       code = dataBean.getVarietycode();
-      if (!code.equals(middleCode)) {
+      //if (!code.equals(middleCode)) {
         mDatas = analyzeCode();
         initRecycle();
         tongJi();
         countWasteProduct();
         middleCode = dataBean.getVarietycode();
-      }
+      //}
     }
   }
 
@@ -464,15 +464,15 @@ public class AddActivity extends MvpActivity<AddPresenter>
     }
     //废品
     wasteProduct = Double.parseDouble(sWasteProduct);
-    if (code.equals(middleCode)) {
-
-    } else {
+    //if (code.equals(middleCode)) {
+    //
+    //} else {
       if (code.equals(GONG_JIN)) {
         wasteProduct = wasteProduct / 2;
       } else {
         wasteProduct = wasteProduct * 2;
       }
-    }
+    //}
     mTvWasteProductEt.setText(formDecimalFormat(wasteProduct));
     //实重 =净重-废品
     if (netWeight > 0) {
@@ -611,7 +611,7 @@ public class AddActivity extends MvpActivity<AddPresenter>
     //if (pos < mDatas.size()) {
     AddItemBean addItemBean = new AddItemBean();
     addItemBean.setBreed(ItemBean.getBreed());//品种
-    //addItemBean.setBreedId("");
+    addItemBean.setBreedId(ItemBean.getBreedId());
     addItemBean.setNorms(ItemBean.getNorms());//规格
     //addItemBean.setRough("0");//毛重
     mDatas.add(addItemBean);
